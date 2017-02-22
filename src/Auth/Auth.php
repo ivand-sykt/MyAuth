@@ -25,6 +25,8 @@ use pocketmine\utils\Config;
 ** v1.2 TODOs - more configs, count failed auths
 
 ** v1.3 TODOs - (?) caching, class for db
+
+** v2.0 TODOs - ?, something crazy
 */
 class Auth extends PluginBase {
 		
