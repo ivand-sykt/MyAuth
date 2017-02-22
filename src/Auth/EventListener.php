@@ -30,18 +30,18 @@ class EventListener implements Listener {
 		
 		/* если не зарегестрирован */
 		if($info->num_rows == 0){
-			$player->sendMessage("§cПожалуйста, зарегестрируйтесь.\nИспользуйте /register <пароль>");
+			$player->sendMessage("§cPlease register.\nUse /register <password>");
 		} else {
 			$data = $info->fetch_assoc();
 			/* в противном случае пытаемся авторизировать автоматически */
 			if(($data['ip'] == $player->getAddress()) && ($data['cid'] == $player->getClientId()))
 			{
 				$this->plugin->authorize($player);
-				$player->sendMessage('§aВы были авторизированы автоматически!');
+				$player->sendMessage('§aYou\'ve authorized automatically!');
 			} else 
 			{
 				/* не удалось авторизировать автоматически, обычная авторизация */
-				$player->sendMessage("§cПожалуйста, авторизируйтесь.\nИспользуйте /login <пароль>");
+				$player->sendMessage("§cPlease login.\nUse /login <password>");
 			}
 		} /* конец */
 	}

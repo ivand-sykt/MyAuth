@@ -1,12 +1,12 @@
 ---
-#IP, по которому идёт подключение к MySQL
+# MySQL DB IP
 ip: '127.0.0.1'
-#Имя пользователя MySQL
+# MySQL username
 username: 'auth'
-#Пароль пользователя MySQL
+# MySQL password
 password: '12345'
-#Имя базы данных, в которой будет хранится информация о паролях
+# MySQL DB name
 database: 'authdb'
-#Префикс таблиц (не обязательно)
+# MySQL DB tables prefix (e.g. for different servers)
 table_prefix: ''
 ...

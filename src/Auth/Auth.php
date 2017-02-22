@@ -12,15 +12,19 @@ use pocketmine\Player;
 
 use pocketmine\utils\Config;
 /* AUTH by SuperPuperSteve
+** Changelog:
 ** v0.1 - First release
+** v0.1.1 - changing language from Russian to English (not for comments)
 
-** v0.2 TODOs - passwd, unregister
+** v0.2 TODOs - multilanguage, improve code, more data storing, poggit description
 
-** v0.3 TODOs - info about player, console commands
+** v0.3 TODOs - chpwd, unregister
 
-** v0.4 TODOs - custom language, more configs, count failed auths
+** v1.1 TODOs - info about player, console commands
 
-** v0.5 TODOs - caching, class for db
+** v1.2 TODOs - more configs, count failed auths
+
+** v1.3 TODOs - (?) caching, class for db
 */
 class Auth extends PluginBase {
 		
@@ -30,7 +34,7 @@ class Auth extends PluginBase {
 	/* При включении плагина - подключение к БД */
 	public function onEnable(){
 		@mkdir($this->getDataFolder());
-		$this->sendLog('§eИнициализация плагина...');
+		$this->sendLog('§ePlugin init...');
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 		
 		$this->saveDefaultConfig();
@@ -42,21 +46,21 @@ class Auth extends PluginBase {
 		$this->db = new \mysqli($this->config['ip'], $this->config['username'], $this->config['password']);
 		
 		if($this->db->connect_errno) {
-			$this->sendLog("§cОшибка подключения к БД MySQL: {$this->db->connect_error}", 'error');
+			$this->sendLog("§cFailed to connect to MySQL: {$this->db->connect_error}", 'error');
 		} else {
-			$this->sendLog('§aУспешное подключение к БД!','info');
 			$this->db_init($this->db);
+			$this->sendLog('§aSuccessfully conneccted to MySQL!','info');
 		}
 		
 	}
 		
 	public function onDisable(){
-		$this->sendLog('§eОтключение от базы данных...', 'info');
+		$this->sendLog('§eDisconnecting from DB...', 'info');
 		$this->db->close();
 	}
 	
 	private function db_init($conn){
-		$this->sendLog('§eИнициализация базы данных...','info');
+		$this->sendLog('§eDB init...','info');
 		
 		$info = $conn->query("CREATE DATABASE IF NOT EXISTS {$this->config['database']} ");
 		$conn->select_db($this->config['database']);

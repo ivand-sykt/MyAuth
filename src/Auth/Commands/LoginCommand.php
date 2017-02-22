@@ -13,7 +13,7 @@ class LoginCommand implements CommandExecutor {
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 		/* если авторизирован */
 		if($this->plugin->isAuthorized($sender)){
-			$sender->sendMessage('§cВы уже авторизированы!');
+			$sender->sendMessage('§cYou are already authorized!');
 			return;
 		} 
 		
@@ -25,12 +25,12 @@ class LoginCommand implements CommandExecutor {
 		
 		if ($data == null) {
 			/* data равно нулю, значит не зарегестрирован */
-			$sender->sendMessage('§cВы ещё не зарегестрированы!');
+			$sender->sendMessage('§cYou aren\'t registered yet!');
 			return;
 		} else {
 			 
 			 if(!isset($args[0])) {
-				 $sender->sendMessage('Вы не указали пароль!');
+				 $sender->sendMessage('Type password, please');
 				 return;
 			 }
 			 
@@ -40,10 +40,10 @@ class LoginCommand implements CommandExecutor {
 			if($data['password_hash'] == $password){
 				/* если пароль подошёл */
 				$this->plugin->authorize($sender);
-				$sender->sendMessage('Вы успешно авторизировались!');
+				$sender->sendMessage('You\'ve successfully authrized!');
 			} else {
 				/* если пароль не подошёл */
-				$sender->sendMessage('Неверный пароль!');
+				$sender->sendMessage('Wrong password!');
 			}
 		}
 
