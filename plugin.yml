@@ -1,0 +1,13 @@
+name: Auth
+main: Auth\Auth
+version: "0.1-final"
+api: [3.0.0-ALPHA3]
+load: STARTUP
+
+commands:
+ register:
+  aliases: ['reg']
+  description: Регистрация аккаунта
+ login:
+  aliases: ['l']
+  description: Войти в аккаунт
