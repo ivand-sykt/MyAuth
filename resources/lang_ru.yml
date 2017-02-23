@@ -7,8 +7,8 @@ mysql_init: "§eИнициализация базы данных MySQL..."
 mysql_success: "§aУспешное подключение к MySQL"
 mysql_disconnect: "§eОтключение от MySQL..."
 
-regiser: "§bПожалуйста, зарегестрируйтесь, используя /reg <пароль>"
-regiser_success: "§aВы успешно зарестрировались!"
+register: "§bПожалуйста, зарегестрируйтесь, используя /reg <пароль>"
+register_success: "§aВы успешно зарестрировались!"
 register_already: "§cВы уже зарегестрированы!"
 register_nopass: "§cВы не указали пароль!"
 
@@ -19,4 +19,9 @@ login_already: "§cВы уже авторизированы!"
 login_nopass: "§cВы не указали пароль!"
 login_wrongpass: "§cНеверный пароль!"
 login_noregister: "§cВы ещё не зарегестрированы!"
+
+unregister_nopass: "§cВы не указали пароль! /unregister <пароль> <повтор пароля>"
+unregister_mismatch: "§cПароли не совпадают!"
+unregister_success: "§cВы успешно удалили аккаунт!"
+unregister_wrong: "§cВы ввели неверный пароль!"
 ...

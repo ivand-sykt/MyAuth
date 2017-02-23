@@ -7,8 +7,8 @@ mysql_init: "§eInitializating MySQL DB..."
 mysql_success: "§aSuccessfully connected to MySQL"
 mysql_disconnect: "§eDisconnecting from MySQL..."
 
-regiser: "§bPlease, register using /reg <password>"
-regiser_success: "§aYou've successfully registered!"
+register: "§bPlease, register using /reg <password>"
+register_success: "§aYou've successfully registered!"
 register_already: "§cYou're already registered"
 register_nopass: "§cYou haven't typed password!"
 
@@ -19,4 +19,9 @@ login_already: "§cYou've already authorized!"
 login_nopass: "§cYou haven't typed password!"
 login_wrongpass: "§cWrong password!"
 login_noregister: "§cYou aren't registered yet!"
+
+unregister_nopass: "§cPlease, type password. /unregister <password> <repeat password>"
+unregister_mismatch: "§cPasswords doesn't match!"
+unregister_success: "§aYou've successfully unregistered!"
+unregister_wrong: "§cYou've typed wrong password"
 ...
