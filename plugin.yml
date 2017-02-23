@@ -1,6 +1,6 @@
 name: MyAuth
 main: MyAuth\MyAuth
-version: "0.2.2"
+version: "0.3-dev#1"
 api: [3.0.0-ALPHA3]
 load: STARTUP
 

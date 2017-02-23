@@ -86,7 +86,7 @@ class MyAuth extends PluginBase {
 						`nickname` varchar(16) NOT NULL,
 						`firstlogin` bigint(20) NOT NULL,
 						`lastlogin` bigint(20) NOT NULL,
-						`password_hash` text NOT NULL,
+						`password_hash` varchar(255) NOT NULL,
 						`ip` varchar(16) NOT NULL,
 						`cid` text NOT NULL,
 						PRIMARY KEY (`nickname`)

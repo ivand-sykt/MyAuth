@@ -17,7 +17,7 @@ class LoginCommand implements CommandExecutor {
 		/* если авторизирован */
 		if($this->plugin->isAuthorized($sender)){
 			$sender->sendMessage($this->lang->getMessage('login_already'));
-			return;
+			return false;
 		} 
 		
 		$db = $this->plugin->getDB();
@@ -29,27 +29,23 @@ class LoginCommand implements CommandExecutor {
 		if ($data == null) {
 			/* data равно нулю, значит не зарегестрирован */
 			$sender->sendMessage($this->lang->getMessage('login_noregister'));
-			return;
-		} else {
-			 
-			 if(!isset($args[0])) {
-				 $sender->sendMessage($this->lang->getMessage('login_nopass'));
-				 return;
-			 }
-			 
-			/* попытка авторизации */
-			/* TODO change method */
-			$password = md5($args[0]);
-			
-			if($data['password_hash'] == $password){
-				/* если пароль подошёл */
-				$this->plugin->authorize($sender);
-				$sender->sendMessage($this->lang->getMessage('login_success'));
-			} else {
-				/* если пароль не подошёл */
-				$sender->sendMessage($this->lang->getMessage('login_wrongpass'));
-			}
+			return false;
+		} 
+		
+		if(!isset($args[0])) {
+			 $sender->sendMessage($this->lang->getMessage('login_nopass'));
+			 return false;
 		}
-
+			
+		$password = $args[0];
+			
+		if(password_verify($password, $data['password_hash'])){
+			/* если пароль подошёл */
+			$this->plugin->authorize($sender);
+			$sender->sendMessage($this->lang->getMessage('login_success'));
+		} else {
+			/* если пароль не подошёл */
+			$sender->sendMessage($this->lang->getMessage('login_wrongpass'));
+		}
 	}
 }
