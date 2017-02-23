@@ -1,13 +1,13 @@
 <?php
 
-namespace Auth;
+namespace MyAuth;
 
-use Auth\Auth;
+use MyAuth\MyAuth;
 use pocketmine\utils\Config;
 
 class Language {
 	
-	public function __construct(Auth $plugin){
+	public function __construct(MyAuth $plugin){
 		$this->plugin = $plugin;
 	}
 	

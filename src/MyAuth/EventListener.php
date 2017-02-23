@@ -1,8 +1,8 @@
 <?php
 
-namespace Auth;
+namespace MyAuth;
 
-use Auth\Auth;
+use MyAuth\MyAuth;
 
 use pocketmine\event\Listener;
 
@@ -19,7 +19,7 @@ use pocketmine\event\block\BlockPlaceEvent;
 
 class EventListener implements Listener {
 	
-	public function __construct(Auth $plugin){
+	public function __construct(MyAuth $plugin){
 		$this->plugin = $plugin;
 		$this->lang = $this->plugin->getLanguage();
 	}

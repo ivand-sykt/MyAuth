@@ -1,9 +1,9 @@
 <?php
 
-namespace Auth;
+namespace MyAuth;
 
-use Auth\EventListener;
-use Auth\Language;
+use MyAuth\EventListener;
+use MyAuth\Language;
 
 use pocketmine\plugin\PluginBase;
 
@@ -18,8 +18,8 @@ use pocketmine\utils\Config;
 ** Changelog:
 ** v0.1 - First release
 ** v0.1.1 - changing language from Russian to English (not for comments)
-
-** v0.2 TODOs - multilanguage 
+** v0.2 multilanguage 
+** v0.2.1 - changing namespace Auth ---> MyAuth (equals to plugin name), repo name as well
 
 ** v0.3 TODOs - chpwd, unregister
 
@@ -34,7 +34,7 @@ use pocketmine\utils\Config;
 ** v2.0 TODOs - ?, something crazy
 */
 
-class Auth extends PluginBase {
+class MyAuth extends PluginBase {
 		
 	public $db;
 	public $lang;

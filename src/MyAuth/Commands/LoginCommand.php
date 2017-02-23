@@ -1,14 +1,14 @@
 <?php
-namespace Auth\Commands;
+namespace MyAuth\Commands;
 
-use Auth\Auth;
+use MyAuth\MyAuth;
 
 use pocketmine\command\CommandExecutor;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 
 class LoginCommand implements CommandExecutor {
-	public function __construct(Auth $plugin){
+	public function __construct(MyAuth $plugin){
 		$this->plugin = $plugin;
 		$this->lang = $this->plugin->getLanguage();
 	}

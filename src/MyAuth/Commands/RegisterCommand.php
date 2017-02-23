@@ -1,12 +1,13 @@
 <?php
-namespace Auth\Commands;
+namespace MyAuth\Commands;
 
+use MyAuth\MyAuth;
 use pocketmine\command\CommandExecutor;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 
 class RegisterCommand implements CommandExecutor {
-	public function __construct(\Auth\Auth $plugin){
+	public function __construct(MyAuth $plugin){
 		$this->plugin = $plugin;
 		$this->lang = $this->plugin->getLanguage();
 	}
