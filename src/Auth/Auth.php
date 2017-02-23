@@ -3,6 +3,7 @@
 namespace Auth;
 
 use Auth\EventListener;
+use Auth\Language;
 
 use pocketmine\plugin\PluginBase;
 
@@ -11,63 +12,77 @@ use pocketmine\command\CommandExecutor;
 use pocketmine\Player;
 
 use pocketmine\utils\Config;
+//use pocketmine\utils\MainLogger;
+
 /* AUTH by SuperPuperSteve
 ** Changelog:
 ** v0.1 - First release
 ** v0.1.1 - changing language from Russian to English (not for comments)
 
-** v0.2 TODOs - multilanguage, improve code, more data storing, poggit description
+** v0.2 TODOs - multilanguage 
 
 ** v0.3 TODOs - chpwd, unregister
+
+** v0.4 TODOs - improve code, more data storing, poggit description, (?) caching, class for db, encryption method
 
 ** v1.1 TODOs - info about player, console commands
 
 ** v1.2 TODOs - more configs, count failed auths
 
-** v1.3 TODOs - (?) caching, class for db
+** v1.3 TODOs - SimpleAuth to MyAuth?
 
 ** v2.0 TODOs - ?, something crazy
 */
+
 class Auth extends PluginBase {
 		
 	public $db;
+	public $lang;
+	
 	public $authorized = array();
 	
-	/* При включении плагина - подключение к БД */
 	public function onEnable(){
-		@mkdir($this->getDataFolder());
-		$this->sendLog('§ePlugin init...');
-		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+		$this->getLogger()->info('§ePlugin initialization...');
 		
-		$this->saveDefaultConfig();
-		$this->config = yaml_parse_file($this->getDataFolder() . 'config.yml');
+		@mkdir($this->getDataFolder());
+		
+		if(!is_file($this->getDataFolder(). 'config.yml')){
+			$this->saveResource('config.yml'); 
+		}
+		
+		$this->config = new Config($this->getDataFolder(). 'config.yml', Config::YAML);
+		
+		$this->lang = new Language($this);
+		$this->lang->lang_init($this->config->get('language'));
+		
+		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 		
 		$this->getCommand("register")->setExecutor(new Commands\RegisterCommand($this));
 		$this->getCommand("login")->setExecutor(new Commands\LoginCommand($this));
 		
-		$this->db = new \mysqli($this->config['ip'], $this->config['username'], $this->config['password']);
+		
+		$this->db = @new \mysqli($this->config->get('ip'), $this->config->get('username'), $this->config->get('password'));
 		
 		if($this->db->connect_errno) {
-			$this->sendLog("§cFailed to connect to MySQL: {$this->db->connect_error}", 'error');
+			$this->getLogger()->info($this->lang->getMessage('mysql_conn_error', ['{mysql_error}'], [$this->db->connect_error]));
 		} else {
 			$this->db_init($this->db);
-			$this->sendLog('§aSuccessfully conneccted to MySQL!','info');
+			$this->getLogger()->info($this->lang->getMessage('mysql_success'));
 		}
 		
 	}
 		
 	public function onDisable(){
-		$this->sendLog('§eDisconnecting from DB...', 'info');
-		$this->db->close();
+		$this->getLogger()->info($this->lang->getMessage('mysql_disconnect'));
+		@$this->db->close();
 	}
 	
 	private function db_init($conn){
-		$this->sendLog('§eDB init...','info');
-		
-		$info = $conn->query("CREATE DATABASE IF NOT EXISTS {$this->config['database']} ");
-		$conn->select_db($this->config['database']);
+		$this->getLogger()->info($this->lang->getMessage('mysql_init'));
+		$info = $conn->query("CREATE DATABASE IF NOT EXISTS {$this->config->get('database')} ");
+		$conn->select_db($this->config->get('database'));
 		$conn->query("
-					CREATE TABLE IF NOT EXISTS `{$this->config['table_prefix']}pass` (
+					CREATE TABLE IF NOT EXISTS `{$this->config->get('table_prefix')}pass` (
 						`nickname` varchar(16) NOT NULL,
 						`firstlogin` bigint(20) NOT NULL,
 						`lastlogin` bigint(20) NOT NULL,
@@ -79,17 +94,14 @@ class Auth extends PluginBase {
 		");
 	}
 	
-	/* Получить подключение к базе данных */
 	public function getDB(){
 		return $this->db;
 	}
 	
-	/* Костыль: удобное отправление сообщения в консоль */
-	public function sendLog($message, string $type = 'info'){
-		$this->getServer()->getLogger()->{$type}("[Auth] $message");
+	public function getLanguage(){
+		return $this->lang;
 	}
 	
-	/* Авторизировать игрока - позволять выполнять действия на сервере и обновить last login */
 	public function authorize(Player $player){
 		$nick = strtolower($player->getName());
 		
@@ -99,18 +111,16 @@ class Auth extends PluginBase {
 		$cid = $player->getClientId();
 		
 		$this->db->query(
-			"UPDATE `{$this->config['table_prefix']}pass`
+			"UPDATE `{$this->config->get('table_prefix')}pass`
 			SET lastlogin=$time, ip='$ip', cid='$cid'
 			WHERE nickname='$nick'"
 			);
 	}
 	
-	/* Деавторизация игрока */
 	public function deauthorize(Player $player){
 		unset($this->authorized[strtolower($player->getName())]);
 	}
 	
-	/* Проверка на авторизованность ника */
 	public function isAuthorized(Player $player){
 		return isset($this->authorized[strtolower($player->getName())]);
 	}

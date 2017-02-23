@@ -1,0 +1,22 @@
+---
+# by SuperPuperSteve (author)
+lang_selected: "§bEnglish has been selected"
+
+mysql_conn_error: "§cFailed to connect to MySQL: {mysql_error}"
+mysql_init: "§eInitializating MySQL DB..."
+mysql_success: "§aSuccessfully connected to MySQL"
+mysql_disconnect: "§eDisconnecting from MySQL..."
+
+regiser: "§bPlease, register using /reg <password>"
+regiser_success: "§aYou've successfully registered!"
+register_already: "§cYou're already registered"
+register_nopass: "§cYou haven't typed password!"
+
+login: "§bPlease, login using /login <password>"
+login_auto: "§aYou've authorized automatically!"
+login_success: "§aYou've successfully authorized!"
+login_already: "§cYou've already authorized!"
+login_nopass: "§cYou haven't typed password!"
+login_wrongpass: "§cWrong password!"
+login_noregister: "§cYou aren't registered yet!"
+...

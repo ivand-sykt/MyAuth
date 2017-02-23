@@ -1,0 +1,22 @@
+---
+# by SuperPuperSteve (author)
+lang_selected: "§bБыл выбран русский язык"
+
+mysql_conn_error: "§cОшибка подключения к MySQL: {mysql_error}"
+mysql_init: "§eИнициализация базы данных MySQL..."
+mysql_success: "§aУспешное подключение к MySQL"
+mysql_disconnect: "§eОтключение от MySQL..."
+
+regiser: "§bПожалуйста, зарегестрируйтесь, используя /reg <пароль>"
+regiser_success: "§aВы успешно зарестрировались!"
+register_already: "§cВы уже зарегестрированы!"
+register_nopass: "§cВы не указали пароль!"
+
+login: "§bПожалуйста, войдите, используя /login <пароль>"
+login_auto: "§aВы были авторизированы автоматически!"
+login_success: "§aВы успешно авторизировались!"
+login_already: "§cВы уже авторизированы!"
+login_nopass: "§cВы не указали пароль!"
+login_wrongpass: "§cНеверный пароль!"
+login_noregister: "§cВы ещё не зарегестрированы!"
+...

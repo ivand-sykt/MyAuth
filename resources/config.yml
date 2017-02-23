@@ -9,4 +9,7 @@ password: '12345'
 database: 'authdb'
 # MySQL DB tables prefix (e.g. for different servers)
 table_prefix: ''
+
+# Message language (ru/en)
+language: 'en'
 ...

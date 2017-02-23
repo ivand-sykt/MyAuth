@@ -2,6 +2,8 @@
 
 namespace Auth;
 
+use Auth\Auth;
+
 use pocketmine\event\Listener;
 
 use pocketmine\event\player\PlayerJoinEvent;
@@ -19,6 +21,7 @@ class EventListener implements Listener {
 	
 	public function __construct(Auth $plugin){
 		$this->plugin = $plugin;
+		$this->lang = $this->plugin->getLanguage();
 	}
 	
 	public function onPlayerLogin(PlayerJoinEvent $event){
@@ -26,22 +29,22 @@ class EventListener implements Listener {
 		$player = $event->getPlayer();
 		$nickname = strtolower($player->getName());
 		
-		$info = $db->query("SELECT * FROM `{$this->plugin->config['table_prefix']}pass` WHERE nickname='$nickname';");
+		$info = $db->query("SELECT * FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname';");
 		
 		/* если не зарегестрирован */
 		if($info->num_rows == 0){
-			$player->sendMessage("§cPlease register.\nUse /register <password>");
+			$player->sendMessage($this->lang->getMessage('register'));
 		} else {
 			$data = $info->fetch_assoc();
 			/* в противном случае пытаемся авторизировать автоматически */
 			if(($data['ip'] == $player->getAddress()) && ($data['cid'] == $player->getClientId()))
 			{
 				$this->plugin->authorize($player);
-				$player->sendMessage('§aYou\'ve authorized automatically!');
+				$player->sendMessage($this->lang->getMessage('login_auto'));
 			} else 
 			{
 				/* не удалось авторизировать автоматически, обычная авторизация */
-				$player->sendMessage("§cPlease login.\nUse /login <password>");
+				$player->sendMessage($this->lang->getMessage('login'));
 			}
 		} /* конец */
 	}
