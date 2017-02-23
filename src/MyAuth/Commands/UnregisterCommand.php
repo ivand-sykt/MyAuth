@@ -33,15 +33,13 @@ class UnregisterCommand implements CommandExecutor {
 			$sender->sendMessage($this->lang->getMessage('unregister_mismatch'));
 			return false;
 		}
-		
-		(string) $nickname = strtolower($sender->getName());
-		
-		$db = $this->plugin->getDB();
-		$info = $db->query("SELECT password_hash FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname'");
+	
+		$database = $this->plugin->getDatabase();
+		$info = $database->getPlayerData($sender);
 		$data = $info->fetch_assoc();
 		
 		if(password_verify($args[0], $data['password_hash'])){
-			$db->query("DELETE FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname'");
+			$database->deletePlayer($sender);
 			$this->plugin->deauthorize($sender);
 			$sender->sendMessage($this->lang->getMessage('unregister_success'));
 			return true;

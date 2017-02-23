@@ -36,12 +36,8 @@ class ChangePasswordCommand implements CommandExecutor {
 			return false;
 		}
 		
-		(string) $newpassword = password_hash($args[1], PASSWORD_DEFAULT);
-		(string) $nickname = strtolower($sender->getName());
-		$db = $this->plugin->getDB();
-		$info = $db->query("UPDATE `{$this->plugin->config->get('table_prefix')}pass`
-						SET password_hash='$newpassword' WHERE nickname='$nickname'
-						");
+		$database = $this->plugin->getDatabase();
+		$database->setPassword($sender, $args[1]);
 						
 		$sender->sendMessage($this->lang->getMessage('passwd_success', ['{new_password}'], [$args[1]]));
 		$this->plugin->deauthorize($sender);

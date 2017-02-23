@@ -1,15 +1,29 @@
 ---
-# MySQL DB IP
+# Database type (mysql)
+# Тип базы данных
+type: mysql
+
+# Database IP
+# IP базы данных
 ip: '127.0.0.1'
-# MySQL username
+# Database username 
+# Имя пользователя 
 username: 'auth'
-# MySQL password
+# Username's password
+# Пароль пользователя
 password: '12345'
-# MySQL DB name
+# Database name
+# Имя базы данных
 database: 'authdb'
-# MySQL DB tables prefix (e.g. for different servers)
+# Database tables prefix
+# Префикс таблиц базы данных
 table_prefix: ''
 
-# Message language (ru/en)
+# Plugin language (ru/en)
+# Язык плагина
 language: 'en'
+
+# Enable autologin? (using IP and Client ID)
+# Включить автоматический вход? (используя IP и Client ID)
+enable_autologin: false
 ...

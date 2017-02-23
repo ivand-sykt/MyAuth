@@ -2,10 +2,10 @@
 # by SuperPuperSteve (author)
 lang_selected: "§bБыл выбран русский язык"
 
-mysql_conn_error: "§cОшибка подключения к MySQL: {mysql_error}"
-mysql_init: "§eИнициализация базы данных MySQL..."
-mysql_success: "§aУспешное подключение к MySQL"
-mysql_disconnect: "§eОтключение от MySQL..."
+db_conn_error: "§cОшибка подключения к базе данных: {error}"
+db_init: "§eИнициализация базы данных"
+db_success: "§aУспешное подключение к базе данных"
+db_disconnect: "§eОтключение от базы данных"
 
 register: "§bПожалуйста, зарегестрируйтесь, используя /reg <пароль>"
 register_success: "§aВы успешно зарестрировались!"

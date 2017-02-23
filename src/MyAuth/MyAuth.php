@@ -12,33 +12,21 @@ use pocketmine\command\CommandExecutor;
 use pocketmine\Player;
 
 use pocketmine\utils\Config;
-//use pocketmine\utils\MainLogger;
 
-/* AUTH by SuperPuperSteve
-** Changelog:
-** v0.1 - First release
-** v0.1.1 - changing language from Russian to English (not for comments)
-** v0.2 multilanguage 
-** v0.2.1 - changing namespace Auth ---> MyAuth (equals to plugin name), repo name as well
-** v0.2.2 - 
---- useless as got rejected from poggit-ci
---- change changelog
---- move changelog to github issues
-** v0.3-dev#1
---- change password hashing method - md5 ---> password_hash
-** v0.3-dev#2
---- unregister command
-** v0.3-dev#3
---- changepassword command
-
-** v1.0 - caching, class for db, new features, more configs (enable/disable autoauth), count failed auths, info about player, console commands, !!!!!TRY TO GET APPROVED BY poggit-ci!!!!!
-
-** v2.0 TODOs - ?, something crazy
-*/
+/*
+ - [ ] caching
+ - [ ] class for db
+ - [ ] more configs 
+ - [ ] enable/disable autoauth
+ - [ ] count failed auths
+ - [ ] info about player
+ - [ ] console commands
+ - [ ] TRY TO GET APPROVED BY poggit-ci
+ */
 
 class MyAuth extends PluginBase {
 		
-	public $db;
+	public $database;
 	public $lang;
 	
 	public $authorized = array();
@@ -57,6 +45,17 @@ class MyAuth extends PluginBase {
 		$this->lang = new Language($this);
 		$this->lang->lang_init($this->config->get('language'));
 		
+		switch(strtolower($this->config->get('type'))){
+			case 'mysql':
+			case 'mysqli':
+				$this->database = new Database\MySQLDatabase($this, 
+				['ip' => $this->config->get('ip'), 
+				'username' => $this->config->get('username'), 
+				'password' => $this->config->get('password')
+				]);
+				break;
+		}
+		
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 		
 		$this->getCommand("register")->setExecutor(new Commands\RegisterCommand($this));
@@ -64,67 +63,38 @@ class MyAuth extends PluginBase {
 		$this->getCommand("unregister")->setExecutor(new Commands\UnregisterCommand($this));
 		$this->getCommand("changepassword")->setExecutor(new Commands\ChangePasswordCommand($this));
 		
-		$this->db = @new \mysqli($this->config->get('ip'), $this->config->get('username'), $this->config->get('password'));
-		
-		if($this->db->connect_errno) {
-			$this->getLogger()->info($this->lang->getMessage('mysql_conn_error', ['{mysql_error}'], [$this->db->connect_error]));
-		} else {
-			$this->db_init($this->db);
-			$this->getLogger()->info($this->lang->getMessage('mysql_success'));
-		}
-		
 	}
-		
+	
+	
 	public function onDisable(){
-		$this->getLogger()->info($this->lang->getMessage('mysql_disconnect'));
-		@$this->db->close();
-	}
-	
-	private function db_init($conn){
-		$this->getLogger()->info($this->lang->getMessage('mysql_init'));
-		$info = $conn->query("CREATE DATABASE IF NOT EXISTS {$this->config->get('database')} ");
-		$conn->select_db($this->config->get('database'));
-		$conn->query("
-					CREATE TABLE IF NOT EXISTS `{$this->config->get('table_prefix')}pass` (
-						`nickname` varchar(16) NOT NULL,
-						`firstlogin` bigint(20) NOT NULL,
-						`lastlogin` bigint(20) NOT NULL,
-						`password_hash` varchar(255) NOT NULL,
-						`ip` varchar(16) NOT NULL,
-						`cid` text NOT NULL,
-						PRIMARY KEY (`nickname`)
-					);
-		");
-	}
-	
-	public function getDB(){
-		return $this->db;
+		$this->database->close();
 	}
 	
 	public function getLanguage(){
 		return $this->lang;
 	}
 	
-	public function authorize(Player $player){
-		$nick = strtolower($player->getName());
-		
-		$this->authorized[$nick] = true;
-		$time = time();
-		$ip = $player->getAddress();
-		$cid = $player->getClientId();
-		
-		$this->db->query(
-			"UPDATE `{$this->config->get('table_prefix')}pass`
-			SET lastlogin=$time, ip='$ip', cid='$cid'
-			WHERE nickname='$nick'"
-			);
-	}
-	
-	public function deauthorize(Player $player){
-		unset($this->authorized[strtolower($player->getName())]);
+	public function getDatabase(){
+		return $this->database;
 	}
 	
 	public function isAuthorized(Player $player){
 		return isset($this->authorized[strtolower($player->getName())]);
+	}
+	
+	public function authorize(Player $player){
+		$nick = strtolower($player->getName());
+		
+		$this->authorized[$nick] = true;
+		
+		(int) $time = time();
+		(string) $ip = $player->getAddress();
+		(string) $cid = $player->getClientId();
+		
+		$this->database->authorizePlayer($player, $ip, $time, $cid);
+	}
+	
+	public function deauthorize(Player $player){
+		unset($this->authorized[strtolower($player->getName())]);
 	}
 }

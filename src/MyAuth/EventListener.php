@@ -25,11 +25,10 @@ class EventListener implements Listener {
 	}
 	
 	public function onPlayerLogin(PlayerJoinEvent $event){
-		$db = $this->plugin->getDB();
+		$database = $this->plugin->getDatabase();
 		$player = $event->getPlayer();
-		$nickname = strtolower($player->getName());
 		
-		$info = $db->query("SELECT * FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname';");
+		$info = $database->getPlayerData($player);
 		
 		/* если не зарегестрирован */
 		if($info->num_rows == 0){

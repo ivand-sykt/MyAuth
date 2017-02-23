@@ -20,10 +20,9 @@ class LoginCommand implements CommandExecutor {
 			return false;
 		} 
 		
-		$db = $this->plugin->getDB();
-		(string) $nickname = strtolower($sender->getName());
+		$database = $this->plugin->getDatabase();
 		
-		$info = $db->query("SELECT * FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname'");
+		$info = $database->getPlayerData($sender);
 		$data = $info->fetch_assoc();
 		
 		if ($data == null) {

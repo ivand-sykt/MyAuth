@@ -2,10 +2,10 @@
 # by SuperPuperSteve (author)
 lang_selected: "§bEnglish has been selected"
 
-mysql_conn_error: "§cFailed to connect to MySQL: {mysql_error}"
-mysql_init: "§eInitializating MySQL DB..."
-mysql_success: "§aSuccessfully connected to MySQL"
-mysql_disconnect: "§eDisconnecting from MySQL..."
+db_conn_error: "§cFailed to connect to DB: {error}"
+db_init: "§eInitializating DB..."
+db_success: "§aSuccessfully connected to DB"
+db_disconnect: "§eDisconnecting from DB..."
 
 register: "§bPlease, register using /reg <password>"
 register_success: "§aYou've successfully registered!"

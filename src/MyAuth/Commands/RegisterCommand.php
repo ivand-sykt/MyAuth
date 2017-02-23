@@ -19,24 +19,13 @@ class RegisterCommand implements CommandExecutor {
 			return false;
 		} 
 		
-		$db = $this->plugin->getDB();
+		$database = $this->plugin->getDatabase();
 		(string) $nickname = strtolower($sender->getName());
 			
-		$info = $db->query("SELECT * FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname'");
+		$info = $database->getPlayerData();
 		
 		if($info->num_rows == 0){
-			(int) $time = time();
-			(string) $ip = $sender->getAddress();
-			(int) $cid = $sender->getClientId();
-			
-			(string) $password = password_hash($args[0], PASSWORD_DEFAULT);
-			
-			$db->query(
-				"INSERT INTO `{$this->plugin->config->get('table_prefix')}pass` 
-				(nickname, firstlogin, lastlogin, password_hash, ip, cid) 
-				VALUES 
-				('$nickname', $time, $time, '$password', '$ip', '$cid');"
-			);
+			$database->registerPlayer($sender, $args[0]);
 			$this->plugin->authorize($sender);
 			$sender->sendMessage($this->lang->getMessage('register_success'));
 			return true;
