@@ -20,16 +20,16 @@ use pocketmine\utils\Config;
 ** v0.1.1 - changing language from Russian to English (not for comments)
 ** v0.2 multilanguage 
 ** v0.2.1 - changing namespace Auth ---> MyAuth (equals to plugin name), repo name as well
+** v0.2.2 - 
+--- useless as got rejected from poggit-ci
+--- change changelog
+--- move changelog to github issues
 
-** v0.3 TODOs - chpwd, unregister
+** v0.3 TODOs - chpassword, unregister, change encryption methods (PHP API)
 
-** v0.4 TODOs - improve code, more data storing, poggit description, (?) caching, class for db, encryption method
+** v0.4 TODOs - caching, class for db
 
-** v1.1 TODOs - info about player, console commands
-
-** v1.2 TODOs - more configs, count failed auths
-
-** v1.3 TODOs - SimpleAuth to MyAuth?
+** v1.0 - new features, more configs, count failed auths, info about player, console commands, !!!!!TRY TO GET APPROVED BY poggit-ci!!!!!
 
 ** v2.0 TODOs - ?, something crazy
 */
