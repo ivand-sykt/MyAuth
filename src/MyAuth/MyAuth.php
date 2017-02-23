@@ -15,7 +15,7 @@ use pocketmine\utils\Config;
 
 /*
  - [ ] caching
- - [ ] class for db
+ - [x] class for db
  - [ ] more configs 
  - [ ] enable/disable autoauth
  - [ ] count failed auths

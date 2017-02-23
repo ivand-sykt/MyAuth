@@ -15,7 +15,6 @@ class MySQLDatabase implements BaseDatabase {
 		$this->lang = $this->plugin->getLanguage();
 		$this->data = $data;
 		$this->db_init();
-		var_dump(1);
 	}
 	
 	public function db_init(){
