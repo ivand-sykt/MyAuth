@@ -31,11 +31,7 @@ use pocketmine\utils\Config;
 ** v0.3-dev#3
 --- changepassword command
 
-** v0.3 TODOs - chpassword, unregister, change encryption methods (PHP API)
-
-** v0.4 TODOs - caching, class for db
-
-** v1.0 - new features, more configs (enable/disable autoauth), count failed auths, info about player, console commands, !!!!!TRY TO GET APPROVED BY poggit-ci!!!!!
+** v1.0 - caching, class for db, new features, more configs (enable/disable autoauth), count failed auths, info about player, console commands, !!!!!TRY TO GET APPROVED BY poggit-ci!!!!!
 
 ** v2.0 TODOs - ?, something crazy
 */

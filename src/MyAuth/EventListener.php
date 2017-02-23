@@ -34,20 +34,21 @@ class EventListener implements Listener {
 		/* если не зарегестрирован */
 		if($info->num_rows == 0){
 			$player->sendMessage($this->lang->getMessage('register'));
-		} else {
-			$data = $info->fetch_assoc();
-			/* в противном случае пытаемся авторизировать автоматически */
-			if(($data['ip'] == $player->getAddress()) && ($data['cid'] == $player->getClientId()))
-			{
-				$this->plugin->authorize($player);
-				$player->sendMessage($this->lang->getMessage('login_auto'));
-			} else 
-			{
-				/* не удалось авторизировать автоматически, обычная авторизация */
-				$player->sendMessage($this->lang->getMessage('login'));
-			}
-		} /* конец */
-	}
+			return false;
+		} 
+		
+		$data = $info->fetch_assoc();
+		/* в противном случае пытаемся авторизировать автоматически */
+		if(($data['ip'] == $player->getAddress()) && ($data['cid'] == $player->getClientId()))
+		{
+			$this->plugin->authorize($player);
+			$player->sendMessage($this->lang->getMessage('login_auto'));
+			return true;
+		}
+		
+		$player->sendMessage($this->lang->getMessage('login'));
+		
+	} /* конец */
 	
 	public function onQuit(PlayerQuitEvent $event){
 		$this->plugin->deauthorize($event->getPlayer());
@@ -55,7 +56,6 @@ class EventListener implements Listener {
 	
 	public function onChat(PlayerCommandPreprocessEvent $event){
 		/* если игрок не авторизован */
-
 		if(!($this->plugin->isAuthorized($event->getPlayer()))){
 			$command = explode(' ', $event->getMessage());
 			$allowed = ['/login', '/l', '/register', '/reg'];

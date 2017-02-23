@@ -39,9 +39,11 @@ class RegisterCommand implements CommandExecutor {
 			);
 			$this->plugin->authorize($sender);
 			$sender->sendMessage($this->lang->getMessage('register_success'));
+			return true;
 			
 		} else {
 			$sender->sendMessage($this->lang->getMessage('register_already'));
+			return false;
 		}
 	}
 }

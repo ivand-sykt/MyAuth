@@ -45,5 +45,6 @@ class ChangePasswordCommand implements CommandExecutor {
 						
 		$sender->sendMessage($this->lang->getMessage('passwd_success', ['{new_password}'], [$args[1]]));
 		$this->plugin->deauthorize($sender);
+		return true;
 	}
 }
