@@ -26,4 +26,8 @@ language: 'en'
 # Enable autologin? (using IP and Client ID)
 # Включить автоматический вход? (используя IP и Client ID)
 enable_autologin: false
+
+# Time format (e.g in /myadmin info)
+# Формат времени (например в /myadmin info)
+time_format: 'd.m.Y H:i:s'
 ...

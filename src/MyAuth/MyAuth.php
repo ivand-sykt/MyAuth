@@ -62,6 +62,8 @@ class MyAuth extends PluginBase {
 		$this->getCommand("login")->setExecutor(new Commands\LoginCommand($this));
 		$this->getCommand("unregister")->setExecutor(new Commands\UnregisterCommand($this));
 		$this->getCommand("changepassword")->setExecutor(new Commands\ChangePasswordCommand($this));
+		$this->getCommand("myadmin")->setExecutor(new Commands\MyAdminCommand($this));
+		$this->getCommand("logout")->setExecutor(new Commands\LogoutCommand($this));
 		
 	}
 	
@@ -92,9 +94,11 @@ class MyAuth extends PluginBase {
 		(string) $cid = $player->getClientId();
 		
 		$this->database->authorizePlayer($player, $ip, $time, $cid);
+		return;
 	}
 	
 	public function deauthorize(Player $player){
 		unset($this->authorized[strtolower($player->getName())]);
+		return;
 	}
 }

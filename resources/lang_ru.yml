@@ -1,6 +1,8 @@
 ---
 # by SuperPuperSteve (author)
 lang_selected: "§bБыл выбран русский язык"
+ingame_only: "§cЭта команда должна быть введена только в игре!"
+no_permission: "§cУ вас недостаточно прав!"
 
 db_conn_error: "§cОшибка подключения к базе данных: {error}"
 db_init: "§eИнициализация базы данных"
@@ -30,4 +32,17 @@ passwd_nonewpass: "§cВы не указали новый пароль"
 passwd_mismatch: "§cНовые пароли не совпадают!"
 passwd_noconfirm: "§cВы не повторили пароль"
 passwd_success: "§aВы успешно сменили пароль на \"{new_password}\"! Вы должны авторизироваться снова"
+
+myadmin_help: "§6--- MyAuth ---§f
+\n/myadmin chp <ник> <пароль> - изменить пароль
+\n/myadmin info <ник> - информация о нике"
+myadmin_nonick: "§cВы не указали ник!" 
+myadmin_nopass: "§cВы не указали пароль!"
+myadmin_chp: "§aИзменён пароль для пользователя {nickname}"
+myadmin_noplayer: "§cПользователь {nickname} не зарегестрирован"
+myadmin_info: "--- Информация о {nickname}
+\nПервый вход: {first_login}
+\nПоследний вход: {last_login}
+\nIP: {ip}
+\nCID: {cid}"
 ...

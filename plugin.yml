@@ -1,9 +1,10 @@
 name: MyAuth
 main: MyAuth\MyAuth
-version: "1.0-dev#1"
+version: "1.0-dev#2"
 api: [3.0.0-ALPHA3]
 load: STARTUP
-author: "SuperPuperSteve"
+author: SuperPuperSteve
+description: Authentication plugin
 
 commands:
  register:
@@ -17,3 +18,17 @@ commands:
  changepassword:
   aliases: ['passwd', 'chp']
   description: Changes password
+ logout:
+  description: Log out from an account
+ myadmin:
+  description: MyAuth admin
+
+permissions:
+ myauth:
+  description: MyAdmin global permission
+  default: op
+  
+  children:
+   myauth.myadmin:
+    description: MyAdmin admin
+    default: op

@@ -1,6 +1,8 @@
 ---
 # by SuperPuperSteve (author)
 lang_selected: "§bEnglish has been selected"
+ingame_only: "§cThis command must be ran in-game only!"
+no_permission: "§cYou don't have enough permission"
 
 db_conn_error: "§cFailed to connect to DB: {error}"
 db_init: "§eInitializating DB..."
@@ -30,4 +32,17 @@ passwd_nonewpass: "§cYou didn't type new password"
 passwd_noconfirm: "§cPlease repeat new password"
 passwd_nomatch: "§cNew passwords doesn't match!"
 passwd_success: "§aYou've successfully changed password to \"{new_password}\"! Please, log in again"
+
+myadmin_help: "§6--- MyAuth ---§f
+\n/myadmin chp <nick> <password> - change player's password
+\n/myadmin info <nick> - player's info"
+myadmin_nonick: "§cYou haven't typed nickname!"
+myadmin_nopass: "§cYou haven't typed password!"
+myadmin_chp: "§aPassword changed for user {nickname}"
+myadmin_noplayer: "§cUser {nickname} is not registered"
+myadmin_info: "--- Info about {nickname}
+\nFirst login: {first_login}
+\nLast login: {last_login}
+\nIP: {ip}
+\nCID: {cid}"
 ...

@@ -63,8 +63,25 @@ class MySQLDatabase implements BaseDatabase {
 		return $data;
 	}
 	
+	public function getPlayerDataByName(string $nickname){
+		(string) $nickname = strtolower($nickname);
+		
+		$data = $this->database->query("SELECT * FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname'");
+		return $data;
+	}
+	
 	public function setPassword(Player $player, $password){
 		(string) $nickname = strtolower($player->getName());
+		(string) $newpassword = password_hash($password, PASSWORD_DEFAULT);
+		
+		$this->database->query("UPDATE `{$this->plugin->config->get('table_prefix')}pass`
+						SET password_hash='$newpassword' WHERE nickname='$nickname';
+						");
+		return;
+	}
+	
+	public function setPasswordByName(string $nickname, $password){
+		(string) $nickname = strtolower($nickname);
 		(string) $newpassword = password_hash($password, PASSWORD_DEFAULT);
 		
 		$this->database->query("UPDATE `{$this->plugin->config->get('table_prefix')}pass`
