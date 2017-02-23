@@ -26,6 +26,10 @@ use pocketmine\utils\Config;
 --- move changelog to github issues
 ** v0.3-dev#1
 --- change password hashing method - md5 ---> password_hash
+** v0.3-dev#2
+--- unregister command
+** v0.3-dev#3
+--- changepassword command
 
 ** v0.3 TODOs - chpassword, unregister, change encryption methods (PHP API)
 
@@ -62,7 +66,7 @@ class MyAuth extends PluginBase {
 		$this->getCommand("register")->setExecutor(new Commands\RegisterCommand($this));
 		$this->getCommand("login")->setExecutor(new Commands\LoginCommand($this));
 		$this->getCommand("unregister")->setExecutor(new Commands\UnregisterCommand($this));
-		
+		$this->getCommand("changepassword")->setExecutor(new Commands\ChangePasswordCommand($this));
 		
 		$this->db = @new \mysqli($this->config->get('ip'), $this->config->get('username'), $this->config->get('password'));
 		

@@ -24,4 +24,10 @@ unregister_nopass: "§cPlease, type password. /unregister <password> <repeat pas
 unregister_mismatch: "§cPasswords doesn't match!"
 unregister_success: "§aYou've successfully unregistered!"
 unregister_wrong: "§cYou've typed wrong password"
+
+passwd_nopass: "§cPlease type old password! /chp <old password> <new password> <confirm password>"
+passwd_nonewpass: "§cYou didn't type new password"
+passwd_noconfirm: "§cPlease repeat new password"
+passwd_nomatch: "§cNew passwords doesn't match!"
+passwd_success: "§aYou've successfully changed password to \"{new_password}\"! Please, log in again"
 ...

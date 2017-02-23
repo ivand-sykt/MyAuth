@@ -13,3 +13,6 @@ commands:
   description: Login into an account
  unregister:
   description: Unregister an account
+ changepassword:
+  aliases: ['passwd', 'chp']
+  description: Changes password
