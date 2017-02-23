@@ -35,8 +35,7 @@ class UnregisterCommand implements CommandExecutor {
 		}
 	
 		$database = $this->plugin->getDatabase();
-		$info = $database->getPlayerData($sender);
-		$data = $info->fetch_assoc();
+		$data = $database->getPlayerData($sender);
 		
 		if(password_verify($args[0], $data['password_hash'])){
 			$database->deletePlayer($sender);

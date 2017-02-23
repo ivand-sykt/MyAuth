@@ -60,14 +60,14 @@ class MySQLDatabase implements BaseDatabase {
 		(string) $nickname = strtolower($player->getName());
 		
 		$data = $this->database->query("SELECT * FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname'");
-		return $data;
+		return $data->fetch_assoc();
 	}
 	
 	public function getPlayerDataByName(string $nickname){
 		(string) $nickname = strtolower($nickname);
 		
 		$data = $this->database->query("SELECT * FROM `{$this->plugin->config->get('table_prefix')}pass` WHERE nickname='$nickname'");
-		return $data;
+		return $data->fetch_assoc();
 	}
 	
 	public function setPassword(Player $player, $password){

@@ -28,15 +28,14 @@ class EventListener implements Listener {
 		$database = $this->plugin->getDatabase();
 		$player = $event->getPlayer();
 		
-		$info = $database->getPlayerData($player);
+		$data = $database->getPlayerData($player);
 		
 		/* если не зарегестрирован */
-		if($info->num_rows == 0){
+		if($data == null){
 			$player->sendMessage($this->lang->getMessage('register'));
 			return false;
 		} 
-		
-		$data = $info->fetch_assoc();
+
 		/* в противном случае пытаемся авторизировать автоматически */
 		if(($data['ip'] == $player->getAddress()) && ($data['cid'] == $player->getClientId()))
 		{

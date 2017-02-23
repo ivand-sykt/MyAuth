@@ -45,7 +45,7 @@ class MyAdminCommand implements CommandExecutor {
 					}
 					
 					$data = $database->getPlayerDataByName((string) $args[0]);
-					$data = $data->fetch_assoc();
+					
 					if($data == null){
 						$sender->sendMessage($this->lang->getMessage('myadmin_noplayer', ['{nickname}'], [$args[0]]));
 						return;

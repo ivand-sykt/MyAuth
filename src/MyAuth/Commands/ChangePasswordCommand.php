@@ -16,31 +16,28 @@ class ChangePasswordCommand implements CommandExecutor {
 	}
 	
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
-		if(!isset($args[0])){
-			$sender->sendMessage($this->lang->getMessage('passwd_nopass'));
-			return false;
-		}
 		
-		if(!isset($args[1])){
+		if(!isset($args[0])){
 			$sender->sendMessage($this->lang->getMessage('passwd_nonewpass'));
 			return false;
 		}
 		
-		if(!isset($args[2])){
+		if(!isset($args[1])){
 			$sender->sendMessage($this->lang->getMessage('passwd_noconfirm'));
 			return false;
 		}
 		
-		if($args[1] !== $args[2]){
+		if($args[0] !== $args[1]){
 			$sender->sendMessage($this->lang->getMessage('passwd_mismatch'));
 			return false;
 		}
 		
 		$database = $this->plugin->getDatabase();
-		$database->setPassword($sender, $args[1]);
+		$database->setPassword($sender, $args[0]);
 						
 		$sender->sendMessage($this->lang->getMessage('passwd_success', ['{new_password}'], [$args[1]]));
 		$this->plugin->deauthorize($sender);
 		return true;
+		
 	}
 }

@@ -22,8 +22,7 @@ class LoginCommand implements CommandExecutor {
 		
 		$database = $this->plugin->getDatabase();
 		
-		$info = $database->getPlayerData($sender);
-		$data = $info->fetch_assoc();
+		$data = $database->getPlayerData($sender);
 		
 		if ($data == null) {
 			/* data равно нулю, значит не зарегестрирован */
