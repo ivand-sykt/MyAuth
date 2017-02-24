@@ -10,7 +10,7 @@ class MySQLDatabase implements BaseDatabase {
 	
 	private $cache;
 		
-	public function __construct(MyAuth $plugin, array $data){
+	public function __construct(MyAuth $plugin){
 		$this->plugin = $plugin;
 		$this->lang = $this->plugin->getLanguage();
 		$this->data = $this->plugin->config;
@@ -44,8 +44,12 @@ class MySQLDatabase implements BaseDatabase {
 		");
 	}
 	
-	public function authorizePlayer(Player $player, $ip, $loginTime, $cid){
+	public function authorizePlayer(Player $player){
 		$nickname = strtolower($player->getName());
+				
+		(int) $loginTime = time();
+		(string) $ip = $player->getAddress();
+		(string) $cid = $player->getClientId();
 		
 		$this->database->query("
 		UPDATE `{$this->plugin->config->get('table_prefix')}pass`

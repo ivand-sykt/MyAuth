@@ -1,7 +1,7 @@
 ---
-# Database type (mysql)
+# Database type (mysql, yml, json)
 # Тип базы данных
-type: mysql
+type: yml
 
 # Database IP
 # IP базы данных 
@@ -17,11 +17,11 @@ username: 'auth'
 password: '12345'
 # Database/Folder name
 # Имя базы данных/папок
-# (mysql, yaml)
+# (mysql, yaml, json)
 database: 'authdb'
 # Database tables/folder prefix
 # Префикс таблиц базы данных/папок
-# (mysql, yaml)
+# (mysql, yaml, json)
 table_prefix: ''
 
 # Plugin language (ru/en)
@@ -33,6 +33,33 @@ language: 'en'
 enable_autologin: false
 
 # Time format (e.g in /myadmin info)
-# Формат времени (например в /myadmin info)
+# Формат времени (например, в /myadmin info)
 time_format: 'd.m.Y H:i:s'
+
+##      FOR UNAUTHORIZED USERS      ##
+## ДЛЯ НЕАВТОРИЗИРОВАВШИХСЯ ИГРОКОВ ##
+
+# Block breaking blocks
+# Блокировка ломания блоков
+cancel_block: true
+
+# Block dropping items from inventory
+# Блокировка выбрасывания предметов из инвентаря
+cancel_drop: true
+
+# Block interacting with things
+# Блокировка действий с предметами
+cancel_interacting: true
+
+# Block usage of buckets
+# Блокировка взаимодействий с вёдрами
+cancel_buckets: true
+
+# Block moving
+# Блокировка движений
+cancel_moving: true
+
+# Block eating food
+# Блокировка съедания еды
+cancel_moving: true
 ...

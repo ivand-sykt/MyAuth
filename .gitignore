@@ -1,3 +1,4 @@
 config.yml
 lang*.yml
 authdb/
+plugins/

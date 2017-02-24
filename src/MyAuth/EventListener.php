@@ -17,7 +17,6 @@ use pocketmine\event\player\PlayerBucketEmptyEvent;
 use pocketmine\event\player\PlayerBucketFillEvent;
 use pocketmine\event\player\PlayerItemDropEvent;
 use pocketmine\event\player\PlayerItemConsumeEvent;
-use pocketmine\event\player\PlayerToggleFlightEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 
 use pocketmine\event\block\BlockBreakEvent;
@@ -43,15 +42,18 @@ class EventListener implements Listener {
 		} 
 
 		/* в противном случае пытаемся авторизировать автоматически */
-		if(($data['ip'] == $player->getAddress()) && ($data['cid'] == $player->getClientId()))
-		{
+		if(
+		($this->plugin->config->get('enable_authlogin')) &&
+		($data['ip'] == $player->getAddress()) &&
+		($data['cid'] == $player->getClientId())
+		){
 			$this->plugin->authorize($player);
 			$player->sendMessage($this->lang->getMessage('login_auto'));
 			return true;
 		}
 		
 		$player->sendMessage($this->lang->getMessage('login'));
-		
+		return true;
 	} /* конец */
 	
 	public function onQuit(PlayerQuitEvent $event){
@@ -69,38 +71,35 @@ class EventListener implements Listener {
 	}
 	
 	public function onBreak(BlockBreakEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_blocks'))) $event->setCancelled();
 	}
 	
 	public function onPlace(BlockPlaceEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_blocks'))) $event->setCancelled();
 	}
 	
 	public function onDrop(PlayerDropItemEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_drop'))) $event->setCancelled();
 	}
-	
+
 	public function onInteract(PlayerInteractEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_interacting'))) $event->setCancelled();
 	}
 	
 	public function onBucketEmpty(PlayerBucketEmptyEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_buckets'))) $event->setCancelled();
 	}
 
 	public function onBucketFill(PlayerBucketFillEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_buckets'))) $event->setCancelled();
 	}
 
 	public function onMove(PlayerMoveEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_moving'))) $event->setCancelled();
 	}
 	
 	public function onConsume(PlayerItemConsumeEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_eating'))) $event->setCancelled();
 	}
 	
-	public function onFlying(PlayerToggleFlightEvent $event){
-		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
-	}
 }

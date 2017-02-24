@@ -9,7 +9,7 @@ use pocketmine\utils\Config;
 
 use pocketmine\Player;
 
-class YAMLDatabase implements BaseDatabase {
+class JSONDatabase implements BaseDatabase {
 	
 	private $path;
 	
@@ -23,12 +23,11 @@ class YAMLDatabase implements BaseDatabase {
 	public function db_init(){
 		$this->plugin->getLogger()->info($this->lang->getMessage('db_init'));
 		$this->path = $this->plugin->getDataFolder() . $this->data->get('table_prefix') . $this->data->get('database') . DIRECTORY_SEPARATOR;
-		
 		@mkdir($this->path);
 	}
 	
 	public function authorizePlayer(Player $player){
-		$data = new Config($this->path . strtolower($player->getName()) . '.yml' , Config::YAML);
+		$data = new Config($this->path . strtolower($player->getName()) . '.json' , Config::JSON);
 				
 		$loginTime = time();
 		$ip = $player->getAddress();
@@ -45,7 +44,7 @@ class YAMLDatabase implements BaseDatabase {
 	
 	public function getPlayerData(Player $player){
 		$nickname = strtolower($player->getName());
-		$profile = new Config($this->path . strtolower($nickname) . '.yml', Config::YAML);
+		$profile = new Config($this->path . strtolower($nickname) . '.json', Config::JSON);
 		$data = $profile->getAll();
 		
 		unset($profile);
@@ -54,7 +53,7 @@ class YAMLDatabase implements BaseDatabase {
 	
 	public function getPlayerDataByName(string $nickname){
 		$nickname = strtolower($nickname);
-		$profile = new Config($this->path . strtolower($nickname) . '.yml', Config::YAML);
+		$profile = new Config($this->path . strtolower($nickname) . '.json', Config::JSON);
 		$data = $profile->getAll();
 		
 		unset($profile);
@@ -62,7 +61,7 @@ class YAMLDatabase implements BaseDatabase {
 	}
 	
 	public function setPassword(Player $player, $password){
-		$data = new Config($this->path . strtolower($player->getName()) . '.yml', Config::YAML);
+		$data = new Config($this->path . strtolower($player->getName()) . '.json', Config::JSON);
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		
 		$data->set('password_hash', $password);
@@ -73,7 +72,7 @@ class YAMLDatabase implements BaseDatabase {
 	}
 	
 	public function setPasswordByName(string $nickname, $password){
-		$data = new Config($this->path . strtolower($nickname) . '.yml', Config::YAML);
+		$data = new Config($this->path . strtolower($nickname) . '.json', Config::JSON);
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		
 		$data->set('password_hash', $password);
@@ -86,7 +85,7 @@ class YAMLDatabase implements BaseDatabase {
 	public function deletePlayer(Player $player){
 		$nickname = strtolower($player->getName());
 		
-		unlink($this->path . "$nickname.yml");
+		unlink($this->path . "$nickname.json");
 		return;
 	}
 	
@@ -97,9 +96,9 @@ class YAMLDatabase implements BaseDatabase {
 		$loginTime = time();
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		
-		$profile = new Config($this->path . strtolower($nickname) . '.yml', Config::YAML);
+		$profile = new Config($this->path . strtolower($nickname) . '.json', Config::JSON);
 
-		$profile->set('nickname', $nickname); // for easy conerting from YAML to MySQL in future
+		$profile->set('nickname', $nickname); // for easy conerting from JSON to MySQL in future
 		$profile->set('firstlogin', $loginTime);
 		$profile->set('lastlogin', $loginTime);
 		$profile->set('password_hash', $password);
@@ -115,4 +114,5 @@ class YAMLDatabase implements BaseDatabase {
 	public function close(){
 		
 	}
+	
 }

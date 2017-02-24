@@ -6,7 +6,7 @@ use pocketmine\Player;
 interface BaseDatabase {
 	public function db_init();
 	
-	public function authorizePlayer(Player $player, $ip, $loginTime, $cid);
+	public function authorizePlayer(Player $player);
 	
 	public function getPlayerData(Player $player);
 	

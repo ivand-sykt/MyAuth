@@ -13,21 +13,6 @@ use pocketmine\Player;
 
 use pocketmine\utils\Config;
 
-/*
-- [x] class for db
-- [x] info about player
-- [x] console commands
-- [ ] more configs 
-- [x] more event handlings
-- [ ] enable/disable autoauth
-- [ ] YAML database
-- [ ] JSON database
-- [ ] ServerAuth to YAML?
-- [ ] ServerAuth to JSON?
-- [ ] ServerAuth to MySQL?
-- [ ] try to get approved by poggit-ci :)
- */
-
 class MyAuth extends PluginBase {
 		
 	public $database;
@@ -60,6 +45,10 @@ class MyAuth extends PluginBase {
 				$this->database = new Database\YAMLDatabase($this);
 				break;
 			
+			case 'json':
+				$this->database = new Database\JSONDatabase($this);
+				break;
+				
 			default:
 				$this->database = new Database\YAMLDatabase($this);
 		}
@@ -96,12 +85,8 @@ class MyAuth extends PluginBase {
 		$nick = strtolower($player->getName());
 		
 		$this->authorized[$nick] = true;
-		
-		(int) $time = time();
-		(string) $ip = $player->getAddress();
-		(string) $cid = $player->getClientId();
-		
-		$this->database->authorizePlayer($player, $ip, $time, $cid);
+
+		$this->database->authorizePlayer($player);
 		return;
 	}
 	
