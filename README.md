@@ -9,12 +9,13 @@ MyAuth is simple authentication plugin.
 
 # Changelog (newer releases are higher):
 
-## v1.0 (Future release)
-- /logout command
-- /myadmin command
-- multi-database support
+## v1.0 (February 24th, 2017)
+- JSON and YAML databases
+- Optimizations
+- More event handling
+- More options
 
-## v0.3 (February 23nd, 2017)
+## v0.3 (February 23rd, 2017)
 - change password hashing method - md5 ---> password_hash
 - unregister command
 - changepassword command
