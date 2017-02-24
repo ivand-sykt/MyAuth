@@ -14,14 +14,18 @@ use pocketmine\Player;
 use pocketmine\utils\Config;
 
 /*
- - [ ] caching
- - [x] class for db
- - [ ] more configs 
- - [ ] enable/disable autoauth
- - [ ] count failed auths
- - [ ] info about player
- - [ ] console commands
- - [ ] TRY TO GET APPROVED BY poggit-ci
+- [x] class for db
+- [x] info about player
+- [x] console commands
+- [ ] more configs 
+- [x] more event handlings
+- [ ] enable/disable autoauth
+- [ ] YAML database
+- [ ] JSON database
+- [ ] ServerAuth to YAML?
+- [ ] ServerAuth to JSON?
+- [ ] ServerAuth to MySQL?
+- [ ] try to get approved by poggit-ci :)
  */
 
 class MyAuth extends PluginBase {

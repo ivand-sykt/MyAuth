@@ -13,6 +13,12 @@ use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerCommandPreprocessEvent;
 use pocketmine\event\player\PlayerDropItemEvent;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\event\player\PlayerBucketEmptyEvent;
+use pocketmine\event\player\PlayerBucketFillEvent;
+use pocketmine\event\player\PlayerItemDropEvent;
+use pocketmine\event\player\PlayerItemConsumeEvent;
+use pocketmine\event\player\PlayerToggleFlightEvent;
+use pocketmine\event\player\PlayerMoveEvent;
 
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
@@ -77,5 +83,24 @@ class EventListener implements Listener {
 	public function onInteract(PlayerInteractEvent $event){
 		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
 	}
+	
+	public function onBucketEmpty(PlayerBucketEmptyEvent $event){
+		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+	}
 
+	public function onBucketFill(PlayerBucketFillEvent $event){
+		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+	}
+
+	public function onMove(PlayerMoveEvent $event){
+		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+	}
+	
+	public function onConsume(PlayerItemConsumeEvent $event){
+		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+	}
+	
+	public function onFlying(PlayerToggleFlightEvent $event){
+		if(!$this->plugin->isAuthorized($event->getPlayer())) $event->setCancelled();
+	}
 }
