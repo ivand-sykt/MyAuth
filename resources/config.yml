@@ -4,19 +4,24 @@
 type: mysql
 
 # Database IP
-# IP базы данных
+# IP базы данных 
+# (mysql)
 ip: '127.0.0.1'
 # Database username 
 # Имя пользователя 
+# (mysql)
 username: 'auth'
 # Username's password
 # Пароль пользователя
+# (mysql)
 password: '12345'
-# Database name
-# Имя базы данных
+# Database/Folder name
+# Имя базы данных/папок
+# (mysql, yaml)
 database: 'authdb'
-# Database tables prefix
-# Префикс таблиц базы данных
+# Database tables/folder prefix
+# Префикс таблиц базы данных/папок
+# (mysql, yaml)
 table_prefix: ''
 
 # Plugin language (ru/en)

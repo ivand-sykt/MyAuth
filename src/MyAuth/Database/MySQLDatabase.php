@@ -13,14 +13,14 @@ class MySQLDatabase implements BaseDatabase {
 	public function __construct(MyAuth $plugin, array $data){
 		$this->plugin = $plugin;
 		$this->lang = $this->plugin->getLanguage();
-		$this->data = $data;
+		$this->data = $this->plugin->config;
 		$this->db_init();
 	}
 	
 	public function db_init(){
 		$this->plugin->getLogger()->info($this->lang->getMessage('db_init'));
 		
-		$this->database = @new \mysqli($this->data['ip'], $this->data['username'], $this->data['password']);
+		$this->database = @new \mysqli($this->data->get('ip'), $this->data->get('username'), $this->data->get('password'));
 		
 		if($this->database->connect_errno){
 			$this->plugin->getLogger()->info($this->lang->getMessage('db_conn_error', ['{error}'], [$this->database->connect_error]));

@@ -20,11 +20,10 @@ class RegisterCommand implements CommandExecutor {
 		} 
 		
 		$database = $this->plugin->getDatabase();
-		(string) $nickname = strtolower($sender->getName());
 			
-		$info = $database->getPlayerData();
+		$info = $database->getPlayerData($sender);
 		
-		if($info->num_rows == 0){
+		if($info == null){
 			$database->registerPlayer($sender, $args[0]);
 			$this->plugin->authorize($sender);
 			$sender->sendMessage($this->lang->getMessage('register_success'));

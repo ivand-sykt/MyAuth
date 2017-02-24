@@ -32,6 +32,8 @@ passwd_mismatch: "§cНовые пароли не совпадают!"
 passwd_noconfirm: "§cВы не повторили пароль"
 passwd_success: "§aВы успешно сменили пароль на \"{new_password}\"! Вы должны авторизироваться снова"
 
+logout_success: "§aВы успешно вышли из аккаунта!"
+
 myadmin_help: "§6--- MyAuth ---§f
 \n/myadmin chp <ник> <пароль> - изменить пароль
 \n/myadmin info <ник> - информация о нике"

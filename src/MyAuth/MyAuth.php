@@ -52,12 +52,16 @@ class MyAuth extends PluginBase {
 		switch(strtolower($this->config->get('type'))){
 			case 'mysql':
 			case 'mysqli':
-				$this->database = new Database\MySQLDatabase($this, 
-				['ip' => $this->config->get('ip'), 
-				'username' => $this->config->get('username'), 
-				'password' => $this->config->get('password')
-				]);
+				$this->database = new Database\MySQLDatabase($this);
 				break;
+				
+			case 'yaml':
+			case 'yml':
+				$this->database = new Database\YAMLDatabase($this);
+				break;
+			
+			default:
+				$this->database = new Database\YAMLDatabase($this);
 		}
 		
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);

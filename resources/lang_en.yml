@@ -32,6 +32,8 @@ passwd_noconfirm: "§cPlease repeat new password"
 passwd_nomatch: "§cNew passwords doesn't match!"
 passwd_success: "§aYou've successfully changed password to \"{new_password}\"! Please, log in again"
 
+logout_success: "§aYou've successfully logged out!"
+
 myadmin_help: "§6--- MyAuth ---§f
 \n/myadmin chp <nick> <password> - change player's password
 \n/myadmin info <nick> - player's info"

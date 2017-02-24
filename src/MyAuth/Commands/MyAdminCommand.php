@@ -35,7 +35,7 @@ class MyAdminCommand implements CommandExecutor {
 					}
 					
 					$database->setPasswordByName($args[0], $args[1]);
-					$sender->sendMessage($this->lang->getMessage('myadmin_chp'));
+					$sender->sendMessage($this->lang->getMessage('myadmin_chp', ['{nickname}'], [$args[0]]));
 				break;
 				
 				case 'info':
