@@ -1,5 +1,11 @@
 # MyAuth
-MyAuth is MySQL authentication plugin.
+MyAuth is simple authentication plugin.
+
+## In upcoming releases:
+- Convert SimpleAuth passwords to MyAuth passwords
+- Making players invisible while they aren't logged in
+- More custiomization
+- ???
 
 # Changelog (newer releases are higher):
 
