@@ -43,7 +43,7 @@ class EventListener implements Listener {
 
 		/* в противном случае пытаемся авторизировать автоматически */
 		if(
-		($this->plugin->config->get('enable_authlogin')) &&
+		($this->plugin->config->get('enable_autologin')) &&
 		($data['ip'] == $player->getAddress()) &&
 		($data['cid'] == $player->getClientId())
 		){
