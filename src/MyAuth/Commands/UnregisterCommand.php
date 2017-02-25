@@ -18,7 +18,6 @@ class UnregisterCommand implements CommandExecutor {
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
 		/* игрок заведомо зарегестрированный => вошедший и под управлением */
 		
-		/* может использовать оператор '??' ?*/
 		if (!isset($args[0])){
 			$sender->sendMessage($this->lang->getMessage('unregister_nopass'));
 			return false;

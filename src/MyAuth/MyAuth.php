@@ -5,6 +5,8 @@ namespace MyAuth;
 use MyAuth\EventListener;
 use MyAuth\Language;
 
+use pocketmine\entity\Effect;
+
 use pocketmine\plugin\PluginBase;
 
 use pocketmine\command\CommandExecutor;
@@ -83,6 +85,7 @@ class MyAuth extends PluginBase {
 	
 	public function authorize(Player $player){
 		$nick = strtolower($player->getName());
+		$this->setVisible($player);
 		
 		$this->authorized[$nick] = true;
 
@@ -91,7 +94,22 @@ class MyAuth extends PluginBase {
 	}
 	
 	public function deauthorize(Player $player){
+		$this->setInvisible($player);
 		unset($this->authorized[strtolower($player->getName())]);
 		return;
 	}
+	
+	public function setInvisible(Player $player){
+		$effect = Effect::getEffect(Effect::INVISIBILITY);
+		$effect->setDuration(PHP_INT_MAX);
+		$effect->setVisible(false);
+		$effect->setAmplifier(1);
+		
+		$player->addEffect($effect);
+	}
+	
+	public function setVisible($player) {
+		$player->removeEffect(Effect::INVISIBILITY);
+	}
+	
 }

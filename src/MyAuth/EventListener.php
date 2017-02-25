@@ -6,6 +6,8 @@ use MyAuth\MyAuth;
 
 use pocketmine\event\Listener;
 
+use pocketmine\Player;
+
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 
@@ -32,14 +34,15 @@ class EventListener implements Listener {
 	public function onPlayerLogin(PlayerJoinEvent $event){
 		$database = $this->plugin->getDatabase();
 		$player = $event->getPlayer();
+		$this->plugin->setInvisible($player);
 		
 		$data = $database->getPlayerData($player);
-		
+
 		/* если не зарегестрирован */
 		if($data == null){
-			$player->sendMessage($this->lang->getMessage('register'));
+			$player->sendMessage($this->lang->getMessage('register'));		
 			return false;
-		} 
+		} 	
 
 		/* в противном случае пытаемся авторизировать автоматически */
 		if(
@@ -101,5 +104,5 @@ class EventListener implements Listener {
 	public function onConsume(PlayerItemConsumeEvent $event){
 		if((!$this->plugin->isAuthorized($event->getPlayer())) and ($this->plugin->config->get('cancel_eating'))) $event->setCancelled();
 	}
-	
+
 }

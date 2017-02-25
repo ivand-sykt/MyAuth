@@ -1,12 +1,6 @@
 # MyAuth
 MyAuth is simple authentication plugin.
 
-## In upcoming releases:
-* Convert SimpleAuth passwords to MyAuth passwords
-* Making players invisible while they aren't logged in
-* More custiomization
-* ???
-
 ## Last update: v1.0 (February 24th, 2017)
 * JSON and YAML databases
 * Optimizations
