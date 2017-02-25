@@ -1,5 +1,8 @@
 # Changelog (newer releases are higher):
 
+## v1.1 (February 25th, 2017)
+* Hide players if they aren't logged in
+
 ## v1.0 (February 24th, 2017)
 * JSON and YAML databases
 * Optimizations

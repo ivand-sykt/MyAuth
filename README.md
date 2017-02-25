@@ -1,11 +1,8 @@
 # MyAuth
 MyAuth is simple authentication plugin.
 
-## Last update: v1.0 (February 24th, 2017)
-* JSON and YAML databases
-* Optimizations
-* More event handling
-* More options
+## Last update: v1.1 (February 25th, 2017)
+* Hide player if he is not logged in
 
 ## Permissions:
 - `myauth` - top permission of plugin, allows using everything
