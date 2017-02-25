@@ -100,16 +100,20 @@ class MyAuth extends PluginBase {
 	}
 	
 	public function setInvisible(Player $player){
-		$effect = Effect::getEffect(Effect::INVISIBILITY);
-		$effect->setDuration(PHP_INT_MAX);
-		$effect->setVisible(false);
-		$effect->setAmplifier(1);
-		
-		$player->addEffect($effect);
+		if($this->config->get('hide_players')) {
+			$effect = Effect::getEffect(Effect::INVISIBILITY);
+			$effect->setDuration(PHP_INT_MAX);
+			$effect->setVisible(false);
+			$effect->setAmplifier(1);
+
+			$player->addEffect($effect);
+		}
 	}
 	
 	public function setVisible($player) {
-		$player->removeEffect(Effect::INVISIBILITY);
+		if($this->config->get('hide_players')) {
+			$player->removeEffect(Effect::INVISIBILITY);
+		}
 	}
 	
 }

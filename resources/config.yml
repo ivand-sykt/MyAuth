@@ -31,6 +31,9 @@ language: 'en'
 # Enable autologin? (using IP and Client ID)
 # Включить автоматический вход? (используя IP и Client ID)
 enable_autologin: false
+# Enable this if you want to hide players if they aren't logged in
+# Включите это, если вы хотите скрыть неавторизировавшихся игроков
+hide_players: false
 
 # Time format (e.g in /myadmin info)
 # Формат времени (например, в /myadmin info)
