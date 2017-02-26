@@ -36,7 +36,8 @@ class MyAuth extends PluginBase {
 		$this->lang = new Language($this);
 		$this->lang->lang_init($this->config->get('language'));
 		
-		switch(strtolower($this->config->get('type'))){
+		$databaseType = strtolower($this->config->get('type'));
+		switch($databaseType){
 			case 'mysql':
 			case 'mysqli':
 				$this->database = new Database\MySQLDatabase($this);
@@ -51,8 +52,14 @@ class MyAuth extends PluginBase {
 				$this->database = new Database\JSONDatabase($this);
 				break;
 				
+			case 'sqlite':
+			case 'sqlite3':
+				$this->database = new Database\SQLiteDatabase($this);
+				break;
+				
 			default:
-				$this->database = new Database\YAMLDatabase($this);
+				$this->getLogger()->warning($this->lang->getMessage('db_wrong', ['{type}'], [$databaseType]));
+				$this->database = new Database\SQLiteDatabase($this);
 		}
 		
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);

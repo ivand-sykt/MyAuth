@@ -1,5 +1,5 @@
 ---
-# Database type (mysql, yml, json)
+# Database type (mysql, yml, json, sqlite)
 # Тип базы данных
 type: yml
 
@@ -17,11 +17,11 @@ username: 'auth'
 password: '12345'
 # Database/Folder name
 # Имя базы данных/папок
-# (mysql, yaml, json)
+# (mysql, yaml, json, sqlite)
 database: 'authdb'
 # Database tables/folder prefix
 # Префикс таблиц базы данных/папок
-# (mysql, yaml, json)
+# (mysql, yaml, json, sqlite)
 table_prefix: ''
 
 # Plugin language (ru/en)

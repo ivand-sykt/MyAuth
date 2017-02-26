@@ -1,4 +1,5 @@
-config.yml
-lang*.yml
-authdb/
-plugins/
+/config.yml
+/lang*.yml
+/authdb/
+/plugins/
+/*.db

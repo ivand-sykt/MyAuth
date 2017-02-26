@@ -1,8 +1,8 @@
 # MyAuth
 MyAuth is simple authentication plugin.
 
-## Last update: v1.1 (February 25th, 2017)
-* Hide player if he is not logged in
+## Last update: v1.2 (February 26th, 2017)
+* Added SQLite3 database types, now it is default.
 
 ## Permissions:
 - `myauth` - top permission of plugin, allows using everything

@@ -1,15 +1,13 @@
 <?php
+
 namespace MyAuth\Database;
 
-use MyAuth\Database\BaseDatabase;
 use MyAuth\MyAuth;
+use MyAuth\Database\BaseDatabase;
 
 use pocketmine\Player;
 
-class MySQLDatabase implements BaseDatabase {
-	
-	private $cache;
-		
+class SQLiteDatabase implements BaseDatabase {
 	public function __construct(MyAuth $plugin){
 		$this->plugin = $plugin;
 		$this->lang = $this->plugin->getLanguage();
@@ -18,19 +16,9 @@ class MySQLDatabase implements BaseDatabase {
 	}
 	
 	public function db_init(){
-		$this->plugin->getLogger()->info($this->lang->getMessage('db_init', ['{type}'], ['MySQL']));
-		
-		$this->database = @new \mysqli($this->data->get('ip'), $this->data->get('username'), $this->data->get('password'));
-		
-		if($this->database->connect_errno){
-			$this->plugin->getLogger()->info($this->lang->getMessage('db_conn_error', ['{error}'], [$this->database->connect_error]));
-			return false;
-		}
-		
-		$this->plugin->getLogger()->info($this->lang->getMessage('db_success'));
-		
-		$this->database->query("CREATE DATABASE IF NOT EXISTS {$this->data->get('database')}");
-		$this->database->select_db($this->data->get('database'));
+		$this->plugin->getLogger()->info($this->lang->getMessage('db_init', ['{type}'], ['SQLite']));
+		$this->database = new \SQLite3($this->plugin->getDataFolder() . $this->data->get('database'). '.db');
+
 		$this->database->query("
 					CREATE TABLE IF NOT EXISTS `{$this->data->get('table_prefix')}pass` (
 						`nickname` varchar(16) NOT NULL PRIMARY KEY,
@@ -43,7 +31,7 @@ class MySQLDatabase implements BaseDatabase {
 		");
 	}
 	
-	public function authorizePlayer(Player $player){
+	public function authorizePlayer(Player $player){		
 		$nickname = strtolower($player->getName());
 				
 		(int) $loginTime = time();
@@ -63,14 +51,14 @@ class MySQLDatabase implements BaseDatabase {
 		(string) $nickname = strtolower($player->getName());
 		
 		$data = $this->database->query("SELECT * FROM `{$this->data->get('table_prefix')}pass` WHERE nickname='$nickname'");
-		return $data->fetch_assoc();
+		return $data->fetchArray(SQLITE3_ASSOC);
 	}
 	
 	public function getPlayerDataByName(string $nickname){
 		(string) $nickname = strtolower($nickname);
 		
 		$data = $this->database->query("SELECT * FROM `{$this->data->get('table_prefix')}pass` WHERE nickname='$nickname'");
-		return $data->fetch_assoc();
+		return $data->fetchArray(SQLITE3_ASSOC);
 	}
 	
 	public function setPassword(Player $player, $password){
@@ -97,7 +85,7 @@ class MySQLDatabase implements BaseDatabase {
 		return;
 	}
 	
-	public function deletePlayer(Player $player){
+	public function deletePlayer(Player $player){		
 		(string) $nickname = strtolower($player->getName());
 		$this->database->query("DELETE FROM `{$this->data->get('table_prefix')}pass` WHERE nickname='$nickname'");
 		return;
@@ -119,10 +107,8 @@ class MySQLDatabase implements BaseDatabase {
 		
 		return;
 	}
-
+	
 	public function close(){
-		@$this->database->close();
-		$this->plugin->getLogger()->info($this->lang->getMessage('db_disconnect'));
+		$this->database->close();
 	}
-
-}  
+}

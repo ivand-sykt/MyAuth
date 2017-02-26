@@ -21,7 +21,7 @@ class YAMLDatabase implements BaseDatabase {
 	}
 	
 	public function db_init(){
-		$this->plugin->getLogger()->info($this->lang->getMessage('db_init'));
+		$this->plugin->getLogger()->info($this->lang->getMessage('db_init', ['{type}'], ['YAML']));
 		$this->path = $this->plugin->getDataFolder() . $this->data->get('table_prefix') . $this->data->get('database') . DIRECTORY_SEPARATOR;
 		
 		@mkdir($this->path);

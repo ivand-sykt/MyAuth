@@ -5,9 +5,10 @@ ingame_only: "§cThis command must be ran in-game only!"
 no_permission: "§cYou don't have enough permission"
 
 db_conn_error: "§cFailed to connect to DB: {error}"
-db_init: "§eInitializating DB..."
+db_init: "§eInitializating {type} DB..."
 db_success: "§aSuccessfully connected to DB"
 db_disconnect: "§eDisconnecting from DB..."
+db_wrong: "§cWrong database type: {type}. SQLite will be used instead."
 
 register: "§bPlease, register using /reg <password>"
 register_success: "§aYou've successfully registered!"

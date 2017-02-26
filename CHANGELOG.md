@@ -1,5 +1,9 @@
 # Changelog (newer releases are higher):
 
+
+## v1.2 (February 26th, 2017)
+* Added SQLite3 database types, now it is default.
+
 ## v1.1 (February 25th, 2017)
 * Hide players if they aren't logged in
 
