@@ -1,8 +1,8 @@
 # MyAuth
 MyAuth is simple authentication plugin.
 
-## Last update: v1.2 (February 26th, 2017)
-* Added SQLite3 database types, now it is default.
+## Last update: v1.2.1 (March 3rd, 2017)
+* Some database improvements
 
 ## Permissions:
 - `myauth` - top permission of plugin, allows using everything

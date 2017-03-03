@@ -1,5 +1,7 @@
 # Changelog (newer releases are higher):
 
+## v1.2.1 (March 3rd, 2017)
+* Some database improvements
 
 ## v1.2 (February 26th, 2017)
 * Added SQLite3 database types, now it is default.
