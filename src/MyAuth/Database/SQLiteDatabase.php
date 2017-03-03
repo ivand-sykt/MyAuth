@@ -47,33 +47,22 @@ class SQLiteDatabase implements BaseDatabase {
 		return;
 	}
 	
-	public function getPlayerData(Player $player){
-		(string) $nickname = strtolower($player->getName());
-		
-		$data = $this->database->query("SELECT * FROM `{$this->data->get('table_prefix')}pass` WHERE nickname='$nickname'");
-		return $data->fetchArray(SQLITE3_ASSOC);
-	}
-	
-	public function getPlayerDataByName(string $nickname){
+	public function getPlayerData($nickname){
+		if($nickname instanceof Player){
+			$nickname = $nickname->getName();
+		}
+
 		(string) $nickname = strtolower($nickname);
 		
 		$data = $this->database->query("SELECT * FROM `{$this->data->get('table_prefix')}pass` WHERE nickname='$nickname'");
 		return $data->fetchArray(SQLITE3_ASSOC);
 	}
 	
-	public function setPassword(Player $player, $password){
-		(string) $nickname = strtolower($player->getName());
-		(string) $newpassword = password_hash($password, PASSWORD_DEFAULT);
+	public function setPassword($nickname, $password){
+		if($nickname instanceof Player){
+			$nickname = $nickname->getName();
+		}
 		
-		$this->database->query("
-		UPDATE `{$this->data->get('table_prefix')}pass`
-		SET password_hash='$newpassword' WHERE nickname='$nickname';
-		");
-		
-		return;
-	}
-	
-	public function setPasswordByName(string $nickname, $password){
 		(string) $nickname = strtolower($nickname);
 		(string) $newpassword = password_hash($password, PASSWORD_DEFAULT);
 		
@@ -81,7 +70,7 @@ class SQLiteDatabase implements BaseDatabase {
 		UPDATE `{$this->data->get('table_prefix')}pass`
 		SET password_hash='$newpassword' WHERE nickname='$nickname';
 		");
-	
+		
 		return;
 	}
 	

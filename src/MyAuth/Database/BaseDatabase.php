@@ -8,13 +8,9 @@ interface BaseDatabase {
 	
 	public function authorizePlayer(Player $player);
 	
-	public function getPlayerData(Player $player);
+	public function getPlayerData($nickname);
 	
-	public function getPlayerDataByName(string $nickname);
-	
-	public function setPassword(Player $player, $password);
-	
-	public function setPasswordByName(string $nickname, $password);
+	public function setPassword($nickname, $password);
 	
 	public function deletePlayer(Player $player);
 	

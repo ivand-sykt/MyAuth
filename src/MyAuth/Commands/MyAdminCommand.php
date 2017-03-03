@@ -34,7 +34,7 @@ class MyAdminCommand implements CommandExecutor {
 						return false;
 					}
 					
-					$database->setPasswordByName($args[0], $args[1]);
+					$database->setPassword($args[0], $args[1]);
 					$sender->sendMessage($this->lang->getMessage('myadmin_chp', ['{nickname}'], [$args[0]]));
 				break;
 				
@@ -44,7 +44,7 @@ class MyAdminCommand implements CommandExecutor {
 						return false;
 					}
 					
-					$data = $database->getPlayerDataByName((string) $args[0]);
+					$data = $database->getPlayerData((string) $args[0]);
 					
 					if($data == null){
 						$sender->sendMessage($this->lang->getMessage('myadmin_noplayer', ['{nickname}'], [$args[0]]));

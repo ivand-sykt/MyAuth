@@ -59,33 +59,22 @@ class MySQLDatabase implements BaseDatabase {
 		return;
 	}
 	
-	public function getPlayerData(Player $player){
-		(string) $nickname = strtolower($player->getName());
+	public function getPlayerData($nickname){
+		if($nickname  instanceof Player){
+			$nickname = $nickname->getName();
+		}
 		
-		$data = $this->database->query("SELECT * FROM `{$this->data->get('table_prefix')}pass` WHERE nickname='$nickname'");
-		return $data->fetch_assoc();
-	}
-	
-	public function getPlayerDataByName(string $nickname){
 		(string) $nickname = strtolower($nickname);
 		
 		$data = $this->database->query("SELECT * FROM `{$this->data->get('table_prefix')}pass` WHERE nickname='$nickname'");
 		return $data->fetch_assoc();
 	}
 	
-	public function setPassword(Player $player, $password){
-		(string) $nickname = strtolower($player->getName());
-		(string) $newpassword = password_hash($password, PASSWORD_DEFAULT);
-		
-		$this->database->query("
-		UPDATE `{$this->data->get('table_prefix')}pass`
-		SET password_hash='$newpassword' WHERE nickname='$nickname';
-		");
-		
-		return;
-	}
-	
-	public function setPasswordByName(string $nickname, $password){
+	public function setPassword($nickname, $password){
+		if($nickname instanceof Player){
+			$nickname = $nickname->getName();
+		}
+
 		(string) $nickname = strtolower($nickname);
 		(string) $newpassword = password_hash($password, PASSWORD_DEFAULT);
 		
@@ -93,7 +82,7 @@ class MySQLDatabase implements BaseDatabase {
 		UPDATE `{$this->data->get('table_prefix')}pass`
 		SET password_hash='$newpassword' WHERE nickname='$nickname';
 		");
-	
+		
 		return;
 	}
 	

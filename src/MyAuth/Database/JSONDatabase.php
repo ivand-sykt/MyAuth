@@ -42,37 +42,27 @@ class JSONDatabase implements BaseDatabase {
 		return;
 	}
 	
-	public function getPlayerData(Player $player){
-		$nickname = strtolower($player->getName());
-		$profile = new Config($this->path . strtolower($nickname) . '.json', Config::JSON);
-		$data = $profile->getAll();
+	public function getPlayerData($nickname){
+		if($nickname instanceof Player){
+			$nickname = $nickname->getName();
+		}
 		
-		unset($profile);
-		return $data;
-	}
-	
-	public function getPlayerDataByName(string $nickname){
 		$nickname = strtolower($nickname);
-		$profile = new Config($this->path . strtolower($nickname) . '.json', Config::JSON);
+		$profile = new Config($this->path . $nickname . '.json', Config::JSON);
 		$data = $profile->getAll();
 		
 		unset($profile);
 		return $data;
 	}
 	
-	public function setPassword(Player $player, $password){
-		$data = new Config($this->path . strtolower($player->getName()) . '.json', Config::JSON);
-		$password = password_hash($password, PASSWORD_DEFAULT);
+	public function setPassword($nickname, $password){
+		if($nickname instanceof Player){
+			$nickname = $nickname->getName();
+		}
 		
-		$data->set('password_hash', $password);
-		$data->save(true);
+		$nickname = strtolower($nickname);
 		
-		unset($data);
-		return;
-	}
-	
-	public function setPasswordByName(string $nickname, $password){
-		$data = new Config($this->path . strtolower($nickname) . '.json', Config::JSON);
+		$data = new Config($this->path . $nickname . '.json', Config::JSON);
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		
 		$data->set('password_hash', $password);

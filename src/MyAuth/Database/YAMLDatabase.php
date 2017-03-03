@@ -43,37 +43,27 @@ class YAMLDatabase implements BaseDatabase {
 		return;
 	}
 	
-	public function getPlayerData(Player $player){
-		$nickname = strtolower($player->getName());
-		$profile = new Config($this->path . strtolower($nickname) . '.yml', Config::YAML);
-		$data = $profile->getAll();
-		
-		unset($profile);
-		return $data;
-	}
+	public function getPlayerData($nickname){
+		if($nickname instanceof Player){
+			$nickname = $nickname->getName();
+		}	
 	
-	public function getPlayerDataByName(string $nickname){
 		$nickname = strtolower($nickname);
-		$profile = new Config($this->path . strtolower($nickname) . '.yml', Config::YAML);
+		$profile = new Config($this->path . $nickname . '.yml', Config::YAML);
 		$data = $profile->getAll();
 		
 		unset($profile);
 		return $data;
 	}
 	
-	public function setPassword(Player $player, $password){
-		$data = new Config($this->path . strtolower($player->getName()) . '.yml', Config::YAML);
-		$password = password_hash($password, PASSWORD_DEFAULT);
-		
-		$data->set('password_hash', $password);
-		$data->save(true);
-		
-		unset($data);
-		return;
-	}
+	public function setPassword($nickname, $password){
+		if($nickname instanceof Player){
+			$nickname = $nickname->getName();
+		}	
 	
-	public function setPasswordByName(string $nickname, $password){
-		$data = new Config($this->path . strtolower($nickname) . '.yml', Config::YAML);
+		$nickname = strtolower($nickname);
+		
+		$data = new Config($this->path . $nickname . '.yml', Config::YAML);
 		$password = password_hash($password, PASSWORD_DEFAULT);
 		
 		$data->set('password_hash', $password);
