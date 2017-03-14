@@ -19,17 +19,17 @@ class ChangePasswordCommand implements CommandExecutor {
 		
 		if(!isset($args[0])){
 			$sender->sendMessage($this->lang->getMessage('passwd_nonewpass'));
-			return false;
+			return;
 		}
 		
 		if(!isset($args[1])){
 			$sender->sendMessage($this->lang->getMessage('passwd_noconfirm'));
-			return false;
+			return;
 		}
 		
 		if($args[0] !== $args[1]){
 			$sender->sendMessage($this->lang->getMessage('passwd_mismatch'));
-			return false;
+			return;
 		}
 		
 		$database = $this->plugin->getDatabase();
@@ -37,7 +37,7 @@ class ChangePasswordCommand implements CommandExecutor {
 						
 		$sender->sendMessage($this->lang->getMessage('passwd_success', ['{new_password}'], [$args[1]]));
 		$this->plugin->deauthorize($sender);
-		return true;
+		return;
 		
 	}
 }

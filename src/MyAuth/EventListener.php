@@ -41,7 +41,7 @@ class EventListener implements Listener {
 		/* если не зарегестрирован */
 		if($data == null){
 			$player->sendMessage($this->lang->getMessage('register'));		
-			return false;
+			return;
 		} 	
 
 		/* в противном случае пытаемся авторизировать автоматически */
@@ -52,11 +52,11 @@ class EventListener implements Listener {
 		){
 			$this->plugin->authorize($player);
 			$player->sendMessage($this->lang->getMessage('login_auto'));
-			return true;
+			return;
 		}
 		
 		$player->sendMessage($this->lang->getMessage('login'));
-		return true;
+		return;
 	} /* конец */
 	
 	public function onQuit(PlayerQuitEvent $event){

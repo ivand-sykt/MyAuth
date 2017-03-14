@@ -20,17 +20,17 @@ class UnregisterCommand implements CommandExecutor {
 		
 		if (!isset($args[0])){
 			$sender->sendMessage($this->lang->getMessage('unregister_nopass'));
-			return false;
+			return;
 		}
 		
 		if (!isset($args[1])){
 			$sender->sendMessage($this->lang->getMessage('unregister_nopass'));
-			return false;
+			return;
 		}
 		
 		if($args[0] !== $args[1]){
 			$sender->sendMessage($this->lang->getMessage('unregister_mismatch'));
-			return false;
+			return;
 		}
 	
 		$database = $this->plugin->getDatabase();
@@ -40,10 +40,10 @@ class UnregisterCommand implements CommandExecutor {
 			$database->deletePlayer($sender);
 			$this->plugin->deauthorize($sender);
 			$sender->sendMessage($this->lang->getMessage('unregister_success'));
-			return true;
+			return;
 		} else {
 			$sender->sendMessage($this->lang->getMessage('unregister_wrong'));
-			return false;
+			return;
 		}
 	}
 }

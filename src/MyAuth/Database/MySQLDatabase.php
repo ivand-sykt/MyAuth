@@ -24,7 +24,7 @@ class MySQLDatabase implements BaseDatabase {
 		
 		if($this->database->connect_errno){
 			$this->plugin->getLogger()->info($this->lang->getMessage('db_conn_error', ['{error}'], [$this->database->connect_error]));
-			return false;
+			return;
 		}
 		
 		$this->plugin->getLogger()->info($this->lang->getMessage('db_success'));

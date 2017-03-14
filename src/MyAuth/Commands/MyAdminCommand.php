@@ -26,12 +26,12 @@ class MyAdminCommand implements CommandExecutor {
 				case 'chp':
 					if(!isset($args[0])) {
 						$sender->sendMessage($this->lang->getMessage('myadmin_nonick'));
-						return false;
+						return;
 					}
 					
 					if(!isset($args[1])) {
 						$sender->sendMessage($this->lang->getMessage('myadmin_nopass'));
-						return false;
+						return;
 					}
 					
 					$database->setPassword($args[0], $args[1]);
@@ -41,7 +41,7 @@ class MyAdminCommand implements CommandExecutor {
 				case 'info':
 					if(!isset($args[0])) {
 						$sender->sendMessage($this->lang->getMessage('myadmin_nonick'));
-						return false;
+						return;
 					}
 					
 					$data = $database->getPlayerData((string) $args[0]);

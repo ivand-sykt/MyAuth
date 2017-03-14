@@ -16,7 +16,7 @@ class RegisterCommand implements CommandExecutor {
 		
 		if(!isset($args[0])){
 			$sender->sendMessage(($this->lang->getMessage('register_nopass')));
-			return false;
+			return;
 		} 
 		
 		$database = $this->plugin->getDatabase();
@@ -27,11 +27,11 @@ class RegisterCommand implements CommandExecutor {
 			$database->registerPlayer($sender, $args[0]);
 			$this->plugin->authorize($sender);
 			$sender->sendMessage($this->lang->getMessage('register_success'));
-			return true;
+			return;
 			
 		} else {
 			$sender->sendMessage($this->lang->getMessage('register_already'));
-			return false;
+			return;
 		}
 	}
 }
