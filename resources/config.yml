@@ -64,5 +64,5 @@ cancel_moving: true
 
 # Block eating food
 # Блокировка съедания еды
-cancel_moving: true
+cancel_eating: true
 ...
