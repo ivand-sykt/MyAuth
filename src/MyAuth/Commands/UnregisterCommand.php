@@ -15,7 +15,7 @@ class UnregisterCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
 		/* игрок заведомо зарегестрированный => вошедший и под управлением */
 		
 		if (!isset($args[0])){

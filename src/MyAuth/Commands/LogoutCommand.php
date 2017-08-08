@@ -17,7 +17,7 @@ class LogoutCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
 		if($sender instanceof Player){
 			$this->plugin->deauthorize($sender);
 			$sender->sendMessage($this->lang->getMessage('logout_success'));

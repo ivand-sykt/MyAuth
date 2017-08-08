@@ -13,7 +13,7 @@ class LoginCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
 		/* если авторизирован */
 		if($this->plugin->isAuthorized($sender)){
 			$sender->sendMessage($this->lang->getMessage('login_already'));
