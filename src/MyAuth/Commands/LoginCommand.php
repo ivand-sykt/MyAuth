@@ -45,7 +45,7 @@ class LoginCommand implements CommandExecutor {
 		} else {
 			/* если пароль не подошёл */
 			$sender->sendMessage($this->lang->getMessage('login_wrongpass'));
-			return true;
+			return tru;
 		}
 	}
 }
