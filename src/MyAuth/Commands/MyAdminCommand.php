@@ -15,7 +15,7 @@ class MyAdminCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		if($sender->hasPermission('myauth') or $sender->hasPermission('myauth.myadmin') 
 			or ($sender instanceof ConsoleCommandSender)) 
 		{
@@ -26,12 +26,12 @@ class MyAdminCommand implements CommandExecutor {
 				case 'chp':
 					if(!isset($args[0])) {
 						$sender->sendMessage($this->lang->getMessage('myadmin_nonick'));
-						return;
+						return true;
 					}
 					
 					if(!isset($args[1])) {
 						$sender->sendMessage($this->lang->getMessage('myadmin_nopass'));
-						return;
+						return true;
 					}
 					
 					$database->setPassword($args[0], $args[1]);
@@ -41,14 +41,14 @@ class MyAdminCommand implements CommandExecutor {
 				case 'info':
 					if(!isset($args[0])) {
 						$sender->sendMessage($this->lang->getMessage('myadmin_nonick'));
-						return;
+						return true;
 					}
 					
 					$data = $database->getPlayerData((string) $args[0]);
 					
 					if($data == null){
 						$sender->sendMessage($this->lang->getMessage('myadmin_noplayer', ['{nickname}'], [$args[0]]));
-						return;
+						return true;
 					}
 					
 					$format = $this->plugin->config->get('time_format');
@@ -66,9 +66,10 @@ class MyAdminCommand implements CommandExecutor {
 					$sender->sendMessage($this->lang->getMessage('myadmin_help'));
 			}
 			
-			return;
+			return true;
 		} else {
 			$sender->sendMessage($this->lang->getMessage('no_permission'));
+			return true;
 		}
 	}
 	
