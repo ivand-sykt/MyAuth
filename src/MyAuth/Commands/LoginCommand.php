@@ -13,11 +13,11 @@ class LoginCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		/* если авторизирован */
 		if($this->plugin->isAuthorized($sender)){
 			$sender->sendMessage($this->lang->getMessage('login_already'));
-			return;
+			return true;
 		} 
 		
 		$database = $this->plugin->getDatabase();
@@ -27,12 +27,12 @@ class LoginCommand implements CommandExecutor {
 		if ($data == null) {
 			/* data равно нулю, значит не зарегестрирован */
 			$sender->sendMessage($this->lang->getMessage('login_noregister'));
-			return;
+			return true;
 		} 
 		
 		if(!isset($args[0])) {
 			 $sender->sendMessage($this->lang->getMessage('login_nopass'));
-			 return;
+			 return true;
 		}
 			
 		$password = $args[0];
@@ -41,11 +41,11 @@ class LoginCommand implements CommandExecutor {
 			/* если пароль подошёл */
 			$this->plugin->authorize($sender);
 			$sender->sendMessage($this->lang->getMessage('login_success'));
-			return;
+			return true;
 		} else {
 			/* если пароль не подошёл */
 			$sender->sendMessage($this->lang->getMessage('login_wrongpass'));
-			return;
+			return true;
 		}
 	}
 }

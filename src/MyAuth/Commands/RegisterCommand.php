@@ -12,11 +12,11 @@ class RegisterCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		
 		if(!isset($args[0])){
 			$sender->sendMessage(($this->lang->getMessage('register_nopass')));
-			return;
+			return true;
 		} 
 		
 		$database = $this->plugin->getDatabase();
@@ -27,11 +27,11 @@ class RegisterCommand implements CommandExecutor {
 			$database->registerPlayer($sender, $args[0]);
 			$this->plugin->authorize($sender);
 			$sender->sendMessage($this->lang->getMessage('register_success'));
-			return;
+			return true;
 			
 		} else {
 			$sender->sendMessage($this->lang->getMessage('register_already'));
-			return;
+			return true;
 		}
 	}
 }

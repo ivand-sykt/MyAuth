@@ -15,21 +15,21 @@ class ChangePasswordCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		
 		if(!isset($args[0])){
 			$sender->sendMessage($this->lang->getMessage('passwd_nonewpass'));
-			return;
+			return true;
 		}
 		
 		if(!isset($args[1])){
 			$sender->sendMessage($this->lang->getMessage('passwd_noconfirm'));
-			return;
+			return true;
 		}
 		
 		if($args[0] !== $args[1]){
 			$sender->sendMessage($this->lang->getMessage('passwd_mismatch'));
-			return;
+			return true;
 		}
 		
 		$database = $this->plugin->getDatabase();
@@ -37,7 +37,7 @@ class ChangePasswordCommand implements CommandExecutor {
 						
 		$sender->sendMessage($this->lang->getMessage('passwd_success', ['{new_password}'], [$args[1]]));
 		$this->plugin->deauthorize($sender);
-		return;
+		return true;
 		
 	}
 }
