@@ -31,7 +31,7 @@ class RegisterCommand implements CommandExecutor {
 			
 		} else {
 			$sender->sendMessage($this->lang->getMessage('register_already'));
-			return true;
+			return tru;
 		}
 	}
 }
