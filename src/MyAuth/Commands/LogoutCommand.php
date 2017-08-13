@@ -21,8 +21,10 @@ class LogoutCommand implements CommandExecutor {
 		if($sender instanceof Player){
 			$this->plugin->deauthorize($sender);
 			$sender->sendMessage($this->lang->getMessage('logout_success'));
+			reutrn true;
 		} else {
 			$sender->sendMessage($this->lang->getMessage('ingame_only'));
+			reutrn true;
 		}
 	}
 }

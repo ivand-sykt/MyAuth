@@ -15,22 +15,22 @@ class UnregisterCommand implements CommandExecutor {
 		$this->lang = $this->plugin->getLanguage();
 	}
 	
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool {
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		/* игрок заведомо зарегестрированный => вошедший и под управлением */
 		
 		if (!isset($args[0])){
 			$sender->sendMessage($this->lang->getMessage('unregister_nopass'));
-			return;
+			return true;
 		}
 		
 		if (!isset($args[1])){
 			$sender->sendMessage($this->lang->getMessage('unregister_nopass'));
-			return;
+			return true;
 		}
 		
 		if($args[0] !== $args[1]){
 			$sender->sendMessage($this->lang->getMessage('unregister_mismatch'));
-			return;
+			return true;
 		}
 	
 		$database = $this->plugin->getDatabase();
@@ -40,10 +40,10 @@ class UnregisterCommand implements CommandExecutor {
 			$database->deletePlayer($sender);
 			$this->plugin->deauthorize($sender);
 			$sender->sendMessage($this->lang->getMessage('unregister_success'));
-			return;
+			return true;
 		} else {
 			$sender->sendMessage($this->lang->getMessage('unregister_wrong'));
-			return;
+			return true;
 		}
 	}
 }
